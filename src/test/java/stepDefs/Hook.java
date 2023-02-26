@@ -10,7 +10,6 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import models.Project;
 import org.apache.http.protocol.HTTP;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,7 +43,7 @@ public class Hook extends BaseCucumberTest {
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
-        RestAssured.baseURI = ReadProperties.getUrl();
+        RestAssured.baseURI = ReadProperties.getApiUrl();
         RestAssured.requestSpecification = given()
                 .header(HTTP.CONTENT_TYPE, ContentType.JSON)
                 .header("token", ReadProperties.getApiKey());
