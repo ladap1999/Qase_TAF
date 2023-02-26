@@ -14,8 +14,12 @@ public class ReadProperties {
         }
     }
 
-    public static String getUrl() {
-        return properties.getProperty("url");
+    public static String getApiUrl() {
+        return properties.getProperty("apiUrl");
+    }
+
+    public static String getUiUrl() {
+        return properties.getProperty("uiUrl");
     }
 
     public static String browserName() {
