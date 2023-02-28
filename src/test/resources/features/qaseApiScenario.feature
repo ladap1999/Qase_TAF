@@ -1,4 +1,5 @@
-Feature: test for qase.io
+@api
+Feature: Api tests for qase.io
 
   Scenario Outline: getting all projects
     When user requests all projects

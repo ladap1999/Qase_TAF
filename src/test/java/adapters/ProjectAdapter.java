@@ -1,11 +1,10 @@
 package adapters;
 
 import io.restassured.mapper.ObjectMapperType;
-import models.AllProjectsResponseModel;
+import models.apiResponseModels.AllProjectsResponseModel;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import stepDefs.Hook;
 import utils.Endpoints;
 
 import static io.restassured.RestAssured.given;

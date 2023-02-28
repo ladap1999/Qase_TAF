@@ -31,7 +31,7 @@ public class Hook extends BaseCucumberTest {
         this.baseCucumberTest = baseCucumberTest;
     }
 
-    @Before(order = 1)
+    @Before(value = "@api", order = 1)
     public void setupApi() {
         logger.info("Authorization in Qase.io");
         loggerFile.info("Authorization in Qase.io");
@@ -49,7 +49,7 @@ public class Hook extends BaseCucumberTest {
                 .header("token", ReadProperties.getApiKey());
     }
 
-    @Before(order = 2)
+    @Before(value = "@api", order = 2)
     public void addProject() throws IOException {
         logger.info("Create Project API request");
         loggerFile.info("Create Project API request");
@@ -60,7 +60,7 @@ public class Hook extends BaseCucumberTest {
         projectCode = projectAdapter.addProject(projectToAdd);
     }
 
-    @After
+    @After(value = "@api")
     public void clearTestData() {
         logger.info("Clear project with code " + projectCode);
         loggerFile.info("Clear project with code " + projectCode);
