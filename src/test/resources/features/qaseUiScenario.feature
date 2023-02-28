@@ -1,22 +1,25 @@
-Feature: UI test for qase.io
+@ui
+Feature: UI tests for qase.io
 
   Scenario Outline: test min and max values in Project Code field
     Given user logged in
     When create project with name "<projectName>" and code "<projectCode>"
-    Then Project with name "<projectName>" is displayed
+    Then Project page is opened
+    Then '"<projectCode>" repository' is displayed
     Examples:
-      | projectName | projectCode |
-      | testMin       | 1           |
-      | testMax       | 1234567890  |
+      | projectName | projectCode  |
+      | 1           | 12           |
+      | 2           | 1234567890   |
 
-  Scenario: test min-1 value in Project Code field
+#    Потом с помощью api нужно будет удалить эти два проекта
+
+  Scenario Outline: test min-1 and max+1 values in Project Code field
     Given user logged in
-    When create project with name "test" and code ""
-    Then
-
-   Scenario: test max+1 value in Project Code field
-    Given user logged in
-    When create project with name "test" and code "12345678901"
-    Then
-
+    When create project with name "<projectName>" and code "<projectCode>"
+    Then 'Create new project' dialog is still opened
+    * message "<message>" is displayed
+    Examples:
+      | projectName | projectCode | message                                         |
+      | 3           | 1           | The code must be at least 2 characters.         |
+      | 4           | 12345678901 | The code may not be greater than 10 characters. |
 

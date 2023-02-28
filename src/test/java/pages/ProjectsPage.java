@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ProjectsPage extends BasePage {
+    private String pagePath = "/projects";
     private final By createNewProjectButtonLocator = By.id("createButton");
     private final By elementLocator = By.id("modals"); //parent for 'Create new project' dialog
     private final By projectNameInputLocator = By.id("project-name");
@@ -22,17 +23,29 @@ public class ProjectsPage extends BasePage {
     }
 
     public WebElement getCreateNewProjectButton() { return driver.findElement(createNewProjectButtonLocator);}
+
     public WebElement getProjectNameInput() { return driver.findElement(projectNameInputLocator);}
+
     public WebElement getProjectCodeInput() { return driver.findElement(projectCodeInputLocator);}
+
     public WebElement getProjectDescriptionInput() { return driver.findElement(projectDescriptionInputLocator);}
+
     public WebElement getCancelButton() {
         WebElement element = driver.findElement(elementLocator);
         return element.findElement(By.cssSelector("[type='button']"));
     }
+
     public WebElement getCreateButton() {
         WebElement element = driver.findElement(elementLocator);
         return element.findElement(By.cssSelector("[type='submit']"));
     }
+
+    public WebElement getMessage() {
+        WebElement element = driver.findElement(elementLocator);
+        waitsService.waitForVisibilityBy(By.xpath("//*[@class='Y_SgpC']"));
+        return driver.findElement(By.xpath("//*[@class='Y_SgpC']"));
+    }
+
 
     public WebElement getProjectAccessPrivateRadiobutton() {
         WebElement element = driver.findElement(elementLocator);

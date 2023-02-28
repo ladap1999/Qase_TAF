@@ -1,24 +1,20 @@
-package stepDefs.ui;
+package stepDefs;
 
-import baseEntities.BaseUiCucumberTest;
+import baseEntities.BaseCucumberTest;
 import configuration.ReadProperties;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pages.LoginPage;
 import pages.ProjectsPage;
 
-public class UserUiStepDefs extends BaseUiCucumberTest {
+public class UserStepDefs extends BaseCucumberTest {
     private LoginPage loginPage;
-
-    public UserUiStepDefs(WebDriver driver) {
-        super(driver);
-    }
 
     @Given("user logged in")
     public ProjectsPage login() {
+        loginPage = new LoginPage(driver);
         loginPage.login(ReadProperties.username(), ReadProperties.password());
 
         return new ProjectsPage(driver);
@@ -26,6 +22,7 @@ public class UserUiStepDefs extends BaseUiCucumberTest {
 
     @When("user {string} with password {string} logged in")
     public LoginPage loginIncorrect(String email, String password) {
+        loginPage = new LoginPage(driver);
         loginPage.login(email, password);
 
         return loginPage;
