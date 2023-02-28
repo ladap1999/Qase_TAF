@@ -2,6 +2,7 @@ package configuration;
 
 import java.io.IOException;
 import java.util.Properties;
+
 public class ReadProperties {
     private static final Properties properties;
 
@@ -16,6 +17,10 @@ public class ReadProperties {
 
     public static String getApiUrl() {
         return properties.getProperty("apiUrl");
+    }
+
+    public static String getApiKey() {
+        return properties.getProperty("apiKey");
     }
 
     public static String getUiUrl() {
