@@ -12,7 +12,6 @@ public class ProjectPage extends BasePage {
     private final By createCaseButtonLocator = By.id("create-case-button");
     private final By repositoryNameLocator = By.xpath("//*[@class='VqrSGU']");
 
-
     public ProjectPage(WebDriver driver) {
         super(driver);
     }
@@ -40,6 +39,4 @@ public class ProjectPage extends BasePage {
         waitsService.waitForVisibilityBy(createCaseButtonLocator);
         return driver.findElement(createCaseButtonLocator);
     }
-
-
 }

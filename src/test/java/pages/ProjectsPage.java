@@ -46,7 +46,6 @@ public class ProjectsPage extends BasePage {
         return driver.findElement(By.xpath("//*[@class='Y_SgpC']"));
     }
 
-
     public WebElement getProjectAccessPrivateRadiobutton() {
         WebElement element = driver.findElement(elementLocator);
         return element.findElement(By.cssSelector("[value='private']"));
@@ -57,12 +56,10 @@ public class ProjectsPage extends BasePage {
         return element.findElement(By.cssSelector("[value='public']"));
     }
 
-
     public WebElement getMemberAccessAllRadiobutton() {
         WebElement element = driver.findElement(elementLocator);
         return element.findElement(By.cssSelector("[value='all']"));
     }
-
 
     public WebElement getMemberAccessGroupRadiobutton() {
         WebElement element = driver.findElement(elementLocator);
@@ -73,7 +70,4 @@ public class ProjectsPage extends BasePage {
         WebElement element = driver.findElement(elementLocator);
         return element.findElement(By.cssSelector("[value='none']"));
     }
-
-
-
 }

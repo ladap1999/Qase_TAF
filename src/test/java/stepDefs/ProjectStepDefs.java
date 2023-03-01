@@ -15,7 +15,7 @@ public class ProjectStepDefs extends BaseCucumberTest {
     Logger logger = LogManager.getLogger(ProjectApiStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
 
-    @When("create project with name {string} and code {string}")
+    @When("user creates project with name {string} and code {string}")
     public void createProject(String projectName, String projectCode) {
         logger.info("Creating new project with name " + projectName);
         loggerFile.info("Creating new project with name " + projectName);
@@ -66,5 +66,4 @@ public class ProjectStepDefs extends BaseCucumberTest {
         projectPage = new ProjectPage(driver);
         Assert.assertTrue(projectPage.getRepositoryName().getText().contains(projectCode));
     }
-
 }
