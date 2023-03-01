@@ -8,3 +8,4 @@ Feature: Api tests for qase.io
     Examples:
       | projectCode | projectTitle    |
       | FIRSTAPI    | FirstApiProject |
+
