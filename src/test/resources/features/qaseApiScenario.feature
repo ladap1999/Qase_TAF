@@ -9,4 +9,3 @@ Feature: Api tests for qase.io
       | projectCode | projectTitle    |
       | FIRSTAPI    | FirstApiProject |
 
-

@@ -1,5 +1,7 @@
 package stepDefs;
 
+import factory.BrowserFactory;
+import io.cucumber.java.Scenario;
 import adapters.ProjectAdapter;
 import baseEntities.BaseCucumberTest;
 import com.google.common.io.CharStreams;
@@ -13,6 +15,7 @@ import io.restassured.http.ContentType;
 import org.apache.http.protocol.HTTP;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import services.WaitsService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,5 +69,24 @@ public class Hook extends BaseCucumberTest {
         loggerFile.info("Clear project with code " + projectCode);
 
         projectAdapter.deleteProject(projectCode);
+    }
+
+    @Before(value = "@ui")
+    public void setUp(Scenario scenario) {
+        logger.info("Starting the browser");
+        loggerFile.info("Starting the browser");
+
+        driver = new BrowserFactory().getDriver();
+        waitsService = new WaitsService(driver);
+    }
+
+    @After(value = "@ui")
+    public void tearDown(Scenario scenario) {
+        logger.info("Turning off the browser");
+        loggerFile.info("Turning off the browser");
+
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
