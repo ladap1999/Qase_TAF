@@ -1,6 +1,7 @@
 package adapters;
 
 import io.restassured.mapper.ObjectMapperType;
+import io.restassured.response.Response;
 import models.apiResponseModels.AllProjectsResponseModel;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
@@ -40,6 +41,19 @@ public class ProjectAdapter extends BaseAdapter {
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .as(AllProjectsResponseModel.class, ObjectMapperType.GSON);
+    }
+
+    public Response getProject(String projectCode) {
+        logger.info("get project with projectCode: " + projectCode);
+        loggerFile.info("get project with projectCode: " + projectCode);
+
+        return given()
+                .pathParam("code", projectCode)
+                .when()
+                .get(Endpoints.GET_PROJECT)
+                .then()
+                .extract()
+                .response();
     }
 
     public void deleteProject(String projectCode) {
