@@ -9,3 +9,12 @@ Feature: Api tests for qase.io
       | projectCode | projectTitle    |
       | FIRSTAPI    | FirstApiProject |
 
+  Scenario Outline: getting project with invalid code
+    When user requests project with code "<projectCode>"
+    Then status code is <statusCode>
+
+    Examples:
+      | projectCode | statusCode |
+      | INVALID     | 404        |
+
+

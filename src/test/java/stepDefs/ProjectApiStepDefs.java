@@ -4,8 +4,10 @@ import adapters.ProjectAdapter;
 import baseEntities.BaseCucumberTest;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.response.Response;
 import models.apiResponseModels.AllProjectsResponseModel;
 import models.apiResponseModels.ProjectResponseModel;
+import org.apache.hc.core5.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -16,6 +18,7 @@ public class ProjectApiStepDefs extends BaseCucumberTest {
     Logger logger = LogManager.getLogger(ProjectApiStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
     AllProjectsResponseModel allProjectsResponse;
+    Response getProjectResponse;
 
     public ProjectApiStepDefs(BaseCucumberTest baseCucumberTest) {
         this.baseCucumberTest = baseCucumberTest;
@@ -40,5 +43,16 @@ public class ProjectApiStepDefs extends BaseCucumberTest {
                 Assert.assertEquals(element.getTitle(), projectTitle);
             }
         }
+    }
+
+    @When("user requests project with code {string}")
+    public void getProjectWithCode(String projectCode) {
+        projectAdapter = new ProjectAdapter();
+        getProjectResponse = projectAdapter.getProject(projectCode);
+    }
+
+    @Then("status code is {int}")
+    public void statusCodeIs(int expectedStatusCode) {
+        Assert.assertEquals(getProjectResponse.statusCode(),expectedStatusCode);
     }
 }
