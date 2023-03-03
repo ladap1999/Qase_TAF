@@ -83,7 +83,7 @@ public class Hook extends BaseCucumberTest {
         projectAdapter.deleteProject(projectCode);
     }
 
-    @After(value = "ui")
+    @After(value = "@minMaxUiTest")
     public void clearUiTestData() {
         logger.info("Clear project with code " + ProjectStepDefs.projectId);
         loggerFile.info("Clear project with code " + ProjectStepDefs.projectId);

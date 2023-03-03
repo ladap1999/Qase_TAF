@@ -1,6 +1,7 @@
 @ui
 Feature: UI tests for qase.io
 
+  @minMaxUiTest
   Scenario Outline: test min and max values in Project Code field
     Given user logged in
     When user creates project with name "<projectName>" and code "<projectCode>"
