@@ -17,4 +17,11 @@ Feature: Api tests for qase.io
       | projectCode | statusCode |
       | INVALID     | 404        |
 
+  Scenario Outline: getting case
+    Given case with name "<caseName>" is created
+    When user requests created case
+    Then case name is "<caseName>"
 
+    Examples:
+      | caseName |
+      | TEST     |
