@@ -9,6 +9,7 @@ public class ProjectsPage extends BasePage {
     private String pagePath = "/projects";
     private final By createNewProjectButtonLocator = By.id("createButton");
     private final By elementLocator = By.id("modals"); //parent for 'Create new project' dialog
+    private final By selectedProjectLocator = By.xpath("//*[text() = 'FirstApiUIProject']");
     private final By projectNameInputLocator = By.id("project-name");
     private final By projectCodeInputLocator = By.id("project-code");
     private final By projectDescriptionInputLocator = By.id("description-area");
@@ -22,13 +23,25 @@ public class ProjectsPage extends BasePage {
         return createNewProjectButtonLocator;
     }
 
-    public WebElement getCreateNewProjectButton() { return driver.findElement(createNewProjectButtonLocator);}
+    public WebElement getCreateNewProjectButton() {
+        return driver.findElement(createNewProjectButtonLocator);
+    }
 
-    public WebElement getProjectNameInput() { return driver.findElement(projectNameInputLocator);}
+    public WebElement getProjectNameInput() {
+        return driver.findElement(projectNameInputLocator);
+    }
 
-    public WebElement getProjectCodeInput() { return driver.findElement(projectCodeInputLocator);}
+    public WebElement getProjectCodeInput() {
+        return driver.findElement(projectCodeInputLocator);
+    }
 
-    public WebElement getProjectDescriptionInput() { return driver.findElement(projectDescriptionInputLocator);}
+    public WebElement getSelectedProject() {
+        return waitsService.waitForExists(selectedProjectLocator);
+    }
+
+    public WebElement getProjectDescriptionInput() {
+        return driver.findElement(projectDescriptionInputLocator);
+    }
 
     public WebElement getCancelButton() {
         WebElement element = driver.findElement(elementLocator);

@@ -1,5 +1,6 @@
 package stepDefs;
 
+import adapters.SuiteAdapter;
 import factory.BrowserFactory;
 import io.cucumber.java.Scenario;
 import adapters.ProjectAdapter;
@@ -27,6 +28,7 @@ public class Hook extends BaseCucumberTest {
     private BaseCucumberTest baseCucumberTest;
     protected String projectCode;
     protected ProjectAdapter projectAdapter;
+    protected SuiteAdapter suiteAdapter;
     Logger logger = LogManager.getLogger(Hook.class);
     Logger loggerFile = LogManager.getLogger("File");
 
@@ -34,28 +36,25 @@ public class Hook extends BaseCucumberTest {
         this.baseCucumberTest = baseCucumberTest;
     }
 
-    @Before(value = "@api", order = 1)
-    public void setupApi() {
-        logger.info("Authorization in Qase.io");
-        loggerFile.info("Authorization in Qase.io");
+
+    @Before(value = "@api or @ui", order = 1)
+    public void setUpApi() throws IOException {
+        logger.info("Configuration data for API request");
+        loggerFile.info("Configuration data for API request");
 
         projectAdapter = new ProjectAdapter();
-
         gson = new Gson();
         gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
+    }
 
+    @Before(value = "@api or @ui", order = 2)
+    public void addProject() throws IOException {
         RestAssured.baseURI = ReadProperties.getApiUrl();
         RestAssured.requestSpecification = given()
                 .header(HTTP.CONTENT_TYPE, ContentType.JSON)
                 .header("token", ReadProperties.getApiKey());
-    }
-
-    @Before(value = "@api", order = 2)
-    public void addProject() throws IOException {
-        logger.info("Create Project API request");
-        loggerFile.info("Create Project API request");
 
         InputStream stream = this.getClass().getResourceAsStream("/postJsonData/ProjectBody.json");
         String projectToAdd = CharStreams.toString(new InputStreamReader(stream));
@@ -63,15 +62,36 @@ public class Hook extends BaseCucumberTest {
         projectCode = projectAdapter.addProject(projectToAdd);
     }
 
-    @After(value = "@api")
-    public void clearTestData() {
+    @Before(value = "@ui", order = 3)
+    public void addSuite() throws IOException {
+        suiteAdapter = new SuiteAdapter();
+
+        logger.info("Create suit in project with code " + projectCode);
+        loggerFile.info("Create suit in project with code " + projectCode);
+
+        InputStream stream = this.getClass().getResourceAsStream("/postJsonData/SuiteBody.json");
+        String suiteToAdd = CharStreams.toString(new InputStreamReader(stream));
+
+        suiteAdapter.addSuite(projectCode, suiteToAdd);
+    }
+
+    @After(value = "@api or @ui")
+    public void clearApiTestData() {
         logger.info("Clear project with code " + projectCode);
         loggerFile.info("Clear project with code " + projectCode);
 
         projectAdapter.deleteProject(projectCode);
     }
 
-    @Before(value = "@ui")
+    @After(value = "@minMaxUiTest")
+    public void clearUiTestData() {
+        logger.info("Clear project with code " + ProjectStepDefs.projectId);
+        loggerFile.info("Clear project with code " + ProjectStepDefs.projectId);
+
+        projectAdapter.deleteProject(ProjectStepDefs.projectId);
+    }
+
+    @Before(value = "@ui", order = 4)
     public void setUp(Scenario scenario) {
         logger.info("Starting the browser");
         loggerFile.info("Starting the browser");

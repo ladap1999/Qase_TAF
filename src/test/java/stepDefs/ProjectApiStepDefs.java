@@ -26,10 +26,11 @@ public class ProjectApiStepDefs extends BaseCucumberTest {
 
     @When("user requests all projects")
     public void getAllProjects() {
+        projectAdapter = new ProjectAdapter();
+
         logger.info("get all project in ProjectApiStepDefs");
         loggerFile.info("get all project in ProjectApiStepDefs");
 
-        projectAdapter = new ProjectAdapter();
         allProjectsResponse = projectAdapter.getProjects();
     }
 

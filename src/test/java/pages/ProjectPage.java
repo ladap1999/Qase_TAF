@@ -10,7 +10,8 @@ public class ProjectPage extends BasePage {
     private String pagePath = "/project/";
     private final By createSuiteButtonLocator = By.id("create-suite-button");
     private final By createCaseButtonLocator = By.id("create-case-button");
-    private final By repositoryNameLocator = By.xpath("//*[@class='VqrSGU']");
+    private final By repositoryNameLocator = By.xpath("//h1");
+    private final By suiteTitleLocator = By.xpath("//*[@title = 'SuiteFromPostResponse']");
 
     public ProjectPage(WebDriver driver) {
         super(driver);
@@ -28,6 +29,11 @@ public class ProjectPage extends BasePage {
     public WebElement getRepositoryName() {
         waitsService.waitForVisibilityBy(repositoryNameLocator);
         return driver.findElement(repositoryNameLocator);
+    }
+
+    public WebElement getSuiteTitle() {
+        waitsService.waitForVisibilityBy(suiteTitleLocator);
+        return driver.findElement(suiteTitleLocator);
     }
 
     public WebElement getCreateSuiteButton() {
