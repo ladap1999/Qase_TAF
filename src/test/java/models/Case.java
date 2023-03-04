@@ -21,5 +21,6 @@ public class Case {
     @Expose
     private String description;
     @Expose
-    private int severity;
+    @SerializedName("suite_id")
+    private int suiteID;
 }

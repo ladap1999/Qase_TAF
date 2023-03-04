@@ -26,7 +26,7 @@ import static io.restassured.RestAssured.given;
 
 public class Hook extends BaseCucumberTest {
     private BaseCucumberTest baseCucumberTest;
-    protected String projectCode;
+    protected static String PROJECT_CODE;
     protected ProjectAdapter projectAdapter;
     protected SuiteAdapter suiteAdapter;
     Logger logger = LogManager.getLogger(Hook.class);
@@ -38,7 +38,7 @@ public class Hook extends BaseCucumberTest {
 
 
     @Before(value = "@api or @ui", order = 1)
-    public void setUpApi() throws IOException {
+    public void setUpApi() {
         logger.info("Configuration data for API request");
         loggerFile.info("Configuration data for API request");
 
@@ -59,28 +59,28 @@ public class Hook extends BaseCucumberTest {
         InputStream stream = this.getClass().getResourceAsStream("/postJsonData/ProjectBody.json");
         String projectToAdd = CharStreams.toString(new InputStreamReader(stream));
 
-        projectCode = projectAdapter.addProject(projectToAdd);
+        PROJECT_CODE = projectAdapter.addProject(projectToAdd);
     }
 
     @Before(value = "@ui", order = 3)
     public void addSuite() throws IOException {
         suiteAdapter = new SuiteAdapter();
 
-        logger.info("Create suit in project with code " + projectCode);
-        loggerFile.info("Create suit in project with code " + projectCode);
+        logger.info("Create suit in project with code " + PROJECT_CODE);
+        loggerFile.info("Create suit in project with code " + PROJECT_CODE);
 
         InputStream stream = this.getClass().getResourceAsStream("/postJsonData/SuiteBody.json");
         String suiteToAdd = CharStreams.toString(new InputStreamReader(stream));
 
-        suiteAdapter.addSuite(projectCode, suiteToAdd);
+        suiteAdapter.addSuite(PROJECT_CODE, suiteToAdd);
     }
 
     @After(value = "@api or @ui")
     public void clearApiTestData() {
-        logger.info("Clear project with code " + projectCode);
-        loggerFile.info("Clear project with code " + projectCode);
+        logger.info("Clear project with code " + PROJECT_CODE);
+        loggerFile.info("Clear project with code " + PROJECT_CODE);
 
-        projectAdapter.deleteProject(projectCode);
+        projectAdapter.deleteProject(PROJECT_CODE);
     }
 
     @After(value = "@minMaxUiTest")

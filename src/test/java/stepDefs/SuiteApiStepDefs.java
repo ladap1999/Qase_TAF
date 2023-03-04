@@ -31,13 +31,18 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
     public void createSuite(String suiteName) {
         suiteAdapter = new SuiteAdapter();
 
-        projectCode = "FIRST";
+        projectCode = Hook.PROJECT_CODE;
+
         Suite expectedSuite = Suite.builder()
                 .suiteName(suiteName)
                 .description("for test")
                 .build();
 
         suiteID = suiteAdapter.addSuite(projectCode, expectedSuite);
+    }
+
+    public int getSuiteID() {
+        return suiteID;
     }
 
     @When("user requests created suite")

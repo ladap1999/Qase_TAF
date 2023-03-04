@@ -35,3 +35,13 @@ Feature: Api tests for qase.io
     Examples:
       | projectCode | statusCode |
       | INVALID     | 404        |
+
+
+  Scenario Outline: POST creating case in suite
+    Given suite with name "<suiteName>" is created
+    When user creates case with name "<caseName>" in created suite
+    Then case with name "<caseName>" is in suite
+
+    Examples:
+      | suiteName | caseName   |
+      | ForPOST   | CaseToPost |

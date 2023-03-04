@@ -22,6 +22,7 @@ public class CaseApiStepDefs extends BaseCucumberTest {
     String projectCode;
     int caseID;
     Case actualCase;
+    int suiteID;
 
     public CaseApiStepDefs(BaseCucumberTest baseCucumberTest) {
         this.baseCucumberTest = baseCucumberTest;
@@ -31,12 +32,29 @@ public class CaseApiStepDefs extends BaseCucumberTest {
     public void createCase(String caseName) {
         caseAdapter = new CaseAdapter();
 
-        projectCode = "FIRST";
+        projectCode = Hook.PROJECT_CODE;
 
         Case expectedCase = Case.builder()
                 .caseName(caseName)
                 .description("for test")
-                .severity(1)
+                .build();
+
+        caseID = caseAdapter.addCase(expectedCase, projectCode);
+    }
+
+    @Given("user creates case with name {string} in created suite")
+    public void createCaseInSuite(String caseName) {
+        caseAdapter = new CaseAdapter();
+
+        projectCode = Hook.PROJECT_CODE;
+
+        SuiteApiStepDefs suiteStep = new SuiteApiStepDefs(baseCucumberTest);
+        suiteID = suiteStep.getSuiteID();
+
+        Case expectedCase = Case.builder()
+                .caseName(caseName)
+                .description("for test")
+                .suiteID(suiteID)
                 .build();
 
         caseID = caseAdapter.addCase(expectedCase, projectCode);
@@ -55,6 +73,17 @@ public class CaseApiStepDefs extends BaseCucumberTest {
     public void checkCaseName(String caseName) {
         logger.info("checking case name");
         loggerFile.info("checking case name");
+
         Assert.assertEquals(actualCase.getCaseName(), caseName);
+    }
+
+    @Then("case with name {string} is in suite")
+    public void checkCaseSuiteID(String caseName) {
+        logger.info("checking case name");
+        loggerFile.info("checking case name");
+
+        getCreatedCase();
+        Assert.assertEquals(actualCase.getCaseName(), caseName);
+        Assert.assertEquals(actualCase.getSuiteID(), suiteID);
     }
 }
