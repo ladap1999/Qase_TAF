@@ -9,7 +9,6 @@ import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
 import models.Case;
 import models.apiResponseModels.CaseResponse;
-import models.Project;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -23,7 +22,6 @@ public class CaseApiStepDefs extends BaseCucumberTest {
     String projectCode;
     int caseID;
     Case actualCase;
-    Project project;
 
     public CaseApiStepDefs(BaseCucumberTest baseCucumberTest) {
         this.baseCucumberTest = baseCucumberTest;
@@ -32,11 +30,6 @@ public class CaseApiStepDefs extends BaseCucumberTest {
     @Given("case with name {string} is created")
     public void createCase(String caseName) {
         caseAdapter = new CaseAdapter();
-
-//        String jsonProject = Files.readString(Paths.get("src/test/resources/postJsonData/ProjectBody.json"));
-//        project = new Project();
-//        project = gson.fromJson(jsonProject, Project.class);
-//        projectCode = project.getProjectCode();
 
         projectCode = "FIRST";
 
@@ -59,7 +52,7 @@ public class CaseApiStepDefs extends BaseCucumberTest {
     }
 
     @Then("case name is {string}")
-    public void statusCodeIs(String caseName) {
+    public void checkCaseName(String caseName) {
         logger.info("checking case name");
         loggerFile.info("checking case name");
         Assert.assertEquals(actualCase.getCaseName(), caseName);
