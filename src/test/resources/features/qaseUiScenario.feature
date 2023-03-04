@@ -13,8 +13,6 @@ Feature: UI tests for qase.io
       | 1           | 12          |
       | 2           | 1234567890  |
 
-#    Потом с помощью api нужно будет удалить эти два проекта
-
   Scenario Outline: test min-1 and max+1 values in Project Code field
     Given user logged in
     When user creates project with name "<projectName>" and code "<projectCode>"
