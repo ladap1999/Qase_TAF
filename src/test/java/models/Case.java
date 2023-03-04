@@ -11,13 +11,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Project {
+public class Case {
     @Expose
     @SerializedName("title")
-    private String projectName;
+    private String caseName;
     @Expose
-    @SerializedName("code")
-    private String projectCode;
+    @SerializedName("id")
+    private int caseID;
     @Expose
     private String description;
+    @Expose
+    @SerializedName("suite_id")
+    private int suiteID;
 }
