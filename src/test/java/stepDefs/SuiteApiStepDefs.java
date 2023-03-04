@@ -19,7 +19,6 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
     Logger logger = LogManager.getLogger(SuiteApiStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
     Response rs;
-    String projectCode;
     int suiteID;
     Suite actualSuite;
 
@@ -31,14 +30,12 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
     public void createSuite(String suiteName) {
         suiteAdapter = new SuiteAdapter();
 
-        projectCode = Hook.PROJECT_CODE;
-
         Suite expectedSuite = Suite.builder()
                 .suiteName(suiteName)
                 .description("for test")
                 .build();
 
-        suiteID = suiteAdapter.addSuite(projectCode, expectedSuite);
+        suiteID = suiteAdapter.addSuite(Hook.PROJECT_CODE, expectedSuite);
     }
 
     public int getSuiteID() {
@@ -50,7 +47,7 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
         suiteAdapter = new SuiteAdapter();
         actualSuite = new Suite();
 
-        rs = suiteAdapter.getSuite(projectCode, suiteID);
+        rs = suiteAdapter.getSuite(Hook.PROJECT_CODE, suiteID);
         actualSuite = rs.as(SuiteResponse.class, ObjectMapperType.GSON).getResult();
     }
 

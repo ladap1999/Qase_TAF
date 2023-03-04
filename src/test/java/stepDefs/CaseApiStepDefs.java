@@ -19,7 +19,6 @@ public class CaseApiStepDefs extends BaseCucumberTest {
     Logger logger = LogManager.getLogger(CaseApiStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
     Response rs;
-    String projectCode;
     int caseID;
     Case actualCase;
     int suiteID;
@@ -32,21 +31,17 @@ public class CaseApiStepDefs extends BaseCucumberTest {
     public void createCase(String caseName) {
         caseAdapter = new CaseAdapter();
 
-        projectCode = Hook.PROJECT_CODE;
-
         Case expectedCase = Case.builder()
                 .caseName(caseName)
                 .description("for test")
                 .build();
 
-        caseID = caseAdapter.addCase(expectedCase, projectCode);
+        caseID = caseAdapter.addCase(expectedCase, Hook.PROJECT_CODE);
     }
 
     @Given("user creates case with name {string} in created suite")
     public void createCaseInSuite(String caseName) {
         caseAdapter = new CaseAdapter();
-
-        projectCode = Hook.PROJECT_CODE;
 
         SuiteApiStepDefs suiteStep = new SuiteApiStepDefs(baseCucumberTest);
         suiteID = suiteStep.getSuiteID();
@@ -57,7 +52,7 @@ public class CaseApiStepDefs extends BaseCucumberTest {
                 .suiteID(suiteID)
                 .build();
 
-        caseID = caseAdapter.addCase(expectedCase, projectCode);
+        caseID = caseAdapter.addCase(expectedCase, Hook.PROJECT_CODE);
     }
 
     @When("user requests created case")
@@ -65,7 +60,7 @@ public class CaseApiStepDefs extends BaseCucumberTest {
         caseAdapter = new CaseAdapter();
         actualCase = new Case();
 
-        rs = caseAdapter.getCase(projectCode, caseID);
+        rs = caseAdapter.getCase(Hook.PROJECT_CODE, caseID);
         actualCase = rs.as(CaseResponse.class, ObjectMapperType.GSON).getResult();
     }
 
