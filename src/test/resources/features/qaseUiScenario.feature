@@ -32,3 +32,9 @@ Feature: UI tests for qase.io
     Examples:
       | title                 |
       | SuiteFromPostResponse |
+
+  Scenario: create case
+    Given user logged in
+    * project page is opened
+    When user creates case
+    Then message "Test case was created successfully!" is shown
