@@ -1,6 +1,5 @@
 package baseEntities;
 
-import com.google.gson.Gson;
 import org.openqa.selenium.WebDriver;
 import services.WaitsService;
 

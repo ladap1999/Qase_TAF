@@ -11,7 +11,7 @@ import pages.ProjectPage;
 
 public class CaseStepDefs extends BaseCucumberTest {
     private BaseCucumberTest baseCucumberTest;
-    Logger logger = LogManager.getLogger(CaseApiStepDefs.class);
+    Logger logger = LogManager.getLogger(CaseStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
     ProjectPage projectPage;
     CreateCasePage createCasePage;

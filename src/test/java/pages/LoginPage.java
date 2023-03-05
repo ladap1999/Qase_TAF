@@ -20,10 +20,6 @@ public class LoginPage extends BasePage {
         return logInButtonLocator;
     }
 
-    public By getLogInButtonLocator() {
-        return logInButtonLocator;
-    }
-
     public WebElement getEmailInput() { return driver.findElement(emailInputLocator);}
     public WebElement getPasswordInput() { return driver.findElement(passwordInputLocator);}
     public WebElement getLoginButton() { return driver.findElement(logInButtonLocator);}

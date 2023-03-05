@@ -9,7 +9,7 @@ import pages.ProjectPage;
 
 public class SuiteStepDefs extends BaseCucumberTest {
     private ProjectPage projectPage;
-    Logger logger = LogManager.getLogger(ProjectApiStepDefs.class);
+    Logger logger = LogManager.getLogger(SuiteStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
 
     @Then("suite with name {string} is presented")
