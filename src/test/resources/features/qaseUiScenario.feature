@@ -1,9 +1,10 @@
 @ui
 Feature: UI tests for qase.io
+  Background:
+    Given user logged in
 
   @minMaxUiTest
   Scenario Outline: test min and max values in Project Code field
-    Given user logged in
     When user creates project with name "<projectName>" and code "<projectCode>"
     Then Project page is opened
     * '"<projectCode>" repository' is displayed
@@ -14,7 +15,6 @@ Feature: UI tests for qase.io
       | 2           | 1234567890  |
 
   Scenario Outline: test min-1 and max+1 values in Project Code field
-    Given user logged in
     When user creates project with name "<projectName>" and code "<projectCode>"
     Then 'Create new project' dialog is still opened
     * message "<message>" is displayed
@@ -25,6 +25,10 @@ Feature: UI tests for qase.io
       | 4           | 12345678901 | The code may not be greater than 10 characters. |
 
   Scenario: checking popup title in Suite entity
-    Given user logged in
     When user navigates to ProjectPage
-    Then suite with "SuiteFromPostResponse" is presented
+    Then suite with name "SuiteFromPostResponse" is presented
+
+  Scenario: create case
+    Given page of existed project is opened
+    When user creates case
+    Then message "Test case was created successfully!" is shown

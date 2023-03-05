@@ -1,6 +1,7 @@
 package stepDefs;
 
 import baseEntities.BaseCucumberTest;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
@@ -86,5 +87,14 @@ public class ProjectStepDefs extends BaseCucumberTest {
         loggerFile.info("Navigate to Selected Project");
 
         projectsPage.getSelectedProject().click();
+    }
+
+    @Given("page of existed project is opened")
+    public void openProjectPage() {
+        logger.info("opening Project page");
+        loggerFile.info("opening Project page");
+
+        projectPage = new ProjectPage(driver);
+        projectPage.openProjectByUrl(projectCode);
     }
 }
