@@ -1,5 +1,6 @@
 @ui
 Feature: UI tests for qase.io
+
   Background:
     Given user logged in
 
@@ -29,6 +30,16 @@ Feature: UI tests for qase.io
     Then suite with name "SuiteFromPostResponse" is presented
 
   Scenario: create case
-    Given page of existed project is opened
+    Given page of existed project is opened by url
     When user creates case
     Then message "Test case was created successfully!" is shown
+
+  Scenario: delete suite entity
+    Given user navigates to ProjectPage
+    When user deletes suite entity
+    Then message "Suite was successfully deleted." is presented
+
+  Scenario: displaying the dialog window
+    Given user navigates to ProjectPage
+    When user cancels creation of test case
+    Then dialog window with special element is presented

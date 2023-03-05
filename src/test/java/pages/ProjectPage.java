@@ -13,6 +13,10 @@ public class ProjectPage extends BasePage {
     private final By repositoryNameLocator = By.xpath("//h1");
     private final By suiteTitleLocator = By.xpath("//*[@title = 'SuiteFromPostResponse']");
     private final By caseCreatedMessageLocator = By.xpath("//*[text() = 'Test case was created successfully!']");
+    private final By suiteSettingLocator = By.xpath("//*[@class = 'fa fa-ellipsis-h']");
+    private final By suiteDeleteLocator = By.xpath("//*[@class = 'D6EIXH rzizJk']");
+    private final By suiteDeleteButtonLocator = By.xpath("//*[@type = 'submit']");
+    private final By suiteDeletedMessageLocator = By.xpath("//*[@role = 'alert']");
 
     public ProjectPage(WebDriver driver) {
         super(driver);
@@ -35,6 +39,26 @@ public class ProjectPage extends BasePage {
     public WebElement getSuiteTitle() {
         waitsService.waitForVisibilityBy(suiteTitleLocator);
         return driver.findElement(suiteTitleLocator);
+    }
+
+    public WebElement getSuiteSetting() {
+        waitsService.waitForVisibilityBy(suiteSettingLocator);
+        return driver.findElement(suiteSettingLocator);
+    }
+
+    public WebElement getSuiteDeleting() {
+        waitsService.waitForVisibilityBy(suiteDeleteLocator);
+        return driver.findElement(suiteDeleteLocator);
+    }
+
+    public WebElement getSuiteDeleteButtonLocator() {
+        waitsService.waitForVisibilityBy(suiteDeleteButtonLocator);
+        return driver.findElement(suiteDeleteButtonLocator);
+    }
+
+    public WebElement getSuiteDeleteMessage() {
+        waitsService.waitForVisibilityBy(suiteDeletedMessageLocator);
+        return driver.findElement(suiteDeletedMessageLocator);
     }
 
     public WebElement getCreateSuiteButton() {

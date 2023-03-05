@@ -13,8 +13,8 @@ public class CaseStepDefs extends BaseCucumberTest {
     private BaseCucumberTest baseCucumberTest;
     Logger logger = LogManager.getLogger(CaseStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
-    ProjectPage projectPage;
-    CreateCasePage createCasePage;
+    private ProjectPage projectPage;
+    private CreateCasePage createCasePage;
 
     public CaseStepDefs(BaseCucumberTest baseCucumberTest) {
         this.baseCucumberTest = baseCucumberTest;
@@ -41,5 +41,27 @@ public class CaseStepDefs extends BaseCucumberTest {
 
         projectPage = new ProjectPage(driver);
         Assert.assertEquals(projectPage.getcaseCreatedMessage().getText(), message);
+    }
+
+    @When("user cancels creation of test case")
+    public void cancelCreationOfTestCase() {
+        logger.info("call dialog window");
+        loggerFile.info("call dialog window");
+
+        projectPage = new ProjectPage(driver);
+        createCasePage = new CreateCasePage(driver);
+
+        projectPage.getCreateCaseButton().click();
+        createCasePage.getCaseNameInput().sendKeys("For Test");
+        createCasePage.getCancelButton().click();
+    }
+
+    @Then("dialog window with special element is presented")
+    public void dialogWindowIsPresented() {
+        logger.info("element CloseFormButton is shown");
+        loggerFile.info("element CloseFormButton is shown");
+
+        createCasePage = new CreateCasePage(driver);
+        Assert.assertTrue(createCasePage.getCloseFormButton().isDisplayed());
     }
 }

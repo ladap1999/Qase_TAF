@@ -89,7 +89,7 @@ public class ProjectStepDefs extends BaseCucumberTest {
         projectsPage.getSelectedProject().click();
     }
 
-    @Given("page of existed project is opened")
+    @Given("page of existed project is opened by url")
     public void openProjectPage() {
         logger.info("opening Project page");
         loggerFile.info("opening Project page");
