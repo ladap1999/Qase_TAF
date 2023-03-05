@@ -11,7 +11,7 @@ import utils.Endpoints;
 import static io.restassured.RestAssured.given;
 
 public class SuiteAdapter {
-    Logger logger = LogManager.getLogger(ProjectAdapter.class);
+    Logger logger = LogManager.getLogger(SuiteAdapter.class);
     Logger loggerFile = LogManager.getLogger("File");
 
     public void addSuite(String projectCode, String expectedSuite) {

@@ -58,29 +58,4 @@ public class ProjectsPage extends BasePage {
         waitsService.waitForVisibilityBy(By.xpath("//*[@class='Y_SgpC']"));
         return driver.findElement(By.xpath("//*[@class='Y_SgpC']"));
     }
-
-    public WebElement getProjectAccessPrivateRadiobutton() {
-        WebElement element = driver.findElement(elementLocator);
-        return element.findElement(By.cssSelector("[value='private']"));
-    }
-
-    public WebElement getProjectAccessPublicRadiobutton() {
-        WebElement element = driver.findElement(elementLocator);
-        return element.findElement(By.cssSelector("[value='public']"));
-    }
-
-    public WebElement getMemberAccessAllRadiobutton() {
-        WebElement element = driver.findElement(elementLocator);
-        return element.findElement(By.cssSelector("[value='all']"));
-    }
-
-    public WebElement getMemberAccessGroupRadiobutton() {
-        WebElement element = driver.findElement(elementLocator);
-        return element.findElement(By.cssSelector("[value='group']"));
-    }
-
-    public WebElement getMemberAccessDontAddRadiobutton() {
-        WebElement element = driver.findElement(elementLocator);
-        return element.findElement(By.cssSelector("[value='none']"));
-    }
 }

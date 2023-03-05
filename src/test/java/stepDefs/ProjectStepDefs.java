@@ -14,7 +14,7 @@ public class ProjectStepDefs extends BaseCucumberTest {
     private ProjectsPage projectsPage;
     private ProjectPage projectPage;
     protected static String projectId;
-    Logger logger = LogManager.getLogger(ProjectApiStepDefs.class);
+    Logger logger = LogManager.getLogger(ProjectStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
 
     @When("user creates project with name {string} and code {string}")
