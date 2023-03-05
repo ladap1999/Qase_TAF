@@ -1,7 +1,6 @@
 package stepDefs;
 
 import baseEntities.BaseCucumberTest;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
@@ -17,18 +16,8 @@ public class CaseStepDefs extends BaseCucumberTest {
     ProjectPage projectPage;
     CreateCasePage createCasePage;
 
-
     public CaseStepDefs(BaseCucumberTest baseCucumberTest) {
         this.baseCucumberTest = baseCucumberTest;
-    }
-
-    @Given("project page is opened")
-    public void openProjectPage() {
-        logger.info("opening Project page");
-        loggerFile.info("opening Project page");
-
-        projectPage = new ProjectPage(driver);
-        projectPage.openProjectByUrl(Hook.PROJECT_CODE);
     }
 
     @When("user creates case")
@@ -53,6 +42,4 @@ public class CaseStepDefs extends BaseCucumberTest {
         projectPage = new ProjectPage(driver);
         Assert.assertEquals(projectPage.getcaseCreatedMessage().getText(), message);
     }
-
-
 }

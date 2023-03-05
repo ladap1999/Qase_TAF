@@ -12,7 +12,7 @@ public class SuiteStepDefs extends BaseCucumberTest {
     Logger logger = LogManager.getLogger(ProjectApiStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
 
-    @Then("suite with {string} is presented")
+    @Then("suite with name {string} is presented")
     public void isSuitePresented(String suiteTitle) {
         logger.info("Find suite with title " + suiteTitle);
         loggerFile.info("Find suite with title " + suiteTitle);
