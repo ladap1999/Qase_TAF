@@ -10,7 +10,7 @@ import utils.Endpoints;
 
 import static io.restassured.RestAssured.given;
 
-public class CaseAdapter extends BaseAdapter {
+public class CaseAdapter{
     Logger logger = LogManager.getLogger(CaseAdapter.class);
     Logger loggerFile = LogManager.getLogger("File");
 

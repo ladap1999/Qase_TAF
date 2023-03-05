@@ -10,7 +10,7 @@ import utils.Endpoints;
 
 import static io.restassured.RestAssured.given;
 
-public class SuiteAdapter extends BaseAdapter {
+public class SuiteAdapter {
     Logger logger = LogManager.getLogger(ProjectAdapter.class);
     Logger loggerFile = LogManager.getLogger("File");
 
