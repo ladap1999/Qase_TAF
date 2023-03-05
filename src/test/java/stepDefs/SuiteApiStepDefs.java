@@ -18,9 +18,9 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
     private SuiteAdapter suiteAdapter;
     Logger logger = LogManager.getLogger(SuiteApiStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
-    Response rs;
-    int suiteID;
-    Suite actualSuite;
+    private Response getSuiteResponse;
+    private Response getSuitesResponse;
+    private Suite actualSuite;
 
     public SuiteApiStepDefs(BaseCucumberTest baseCucumberTest) {
         this.baseCucumberTest = baseCucumberTest;
@@ -35,20 +35,16 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
                 .description("for test")
                 .build();
 
-        suiteID = suiteAdapter.addSuite(Hook.PROJECT_CODE, expectedSuite);
-    }
-
-    public int getSuiteID() {
-        return suiteID;
+        suiteId = suiteAdapter.addSuite(Hook.projectCode, expectedSuite);
     }
 
     @When("user requests created suite")
-    public void getCreatedCase() {
+    public void getCreatedSuite() {
         suiteAdapter = new SuiteAdapter();
         actualSuite = new Suite();
 
-        rs = suiteAdapter.getSuite(Hook.PROJECT_CODE, suiteID);
-        actualSuite = rs.as(SuiteResponse.class, ObjectMapperType.GSON).getResult();
+        getSuiteResponse = suiteAdapter.getSuite(Hook.projectCode, suiteId);
+        actualSuite = getSuiteResponse.as(SuiteResponse.class, ObjectMapperType.GSON).getResult();
     }
 
     @Then("suite name is {string}")
@@ -56,5 +52,16 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
         logger.info("checking case name");
         loggerFile.info("checking case name");
         Assert.assertEquals(actualSuite.getSuiteName(), suiteName);
+    }
+
+    @When("user requests all suites from project with code {string}")
+    public void getSuitesFromSelectedProject(String projectCode) {
+        suiteAdapter = new SuiteAdapter();
+        getSuitesResponse = suiteAdapter.getSuites(projectCode);
+    }
+
+    @Then("status code of get suites response is {int}")
+    public void statusCodeIs(int expectedStatusCode) {
+        Assert.assertEquals(getSuitesResponse.statusCode(), expectedStatusCode);
     }
 }

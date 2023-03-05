@@ -1,14 +1,9 @@
 @api
 Feature: Api tests for qase.io
 
-  Scenario Outline: NFE getting all projects
+  Scenario: NFE getting all projects
     When user requests all projects
-    Then project with code "<projectCode>" and title "<projectTitle>" exists
-
-    Examples:
-      | projectCode | projectTitle    |
-      | FIRSTAPI    | FirstApiProject |
-
+    Then project with code "PROJCODE" and title "FirstApiUIProject" exists
 
   Scenario Outline: NFE getting case
     Given case with name "<caseName>" is created
@@ -26,22 +21,21 @@ Feature: Api tests for qase.io
 
     Examples:
       | suiteName |
-      | TEST     |
+      | TEST      |
 
-  Scenario Outline: AFE getting project with invalid code
-    When user requests project with code "<projectCode>"
-    Then status code is <statusCode>
+  Scenario: AFE getting project with invalid code
+    When user requests project with code "INVALID"
+    Then status code of get project response is 404
 
-    Examples:
-      | projectCode | statusCode |
-      | INVALID     | 404        |
-
+  Scenario: AFE getting suits with invalid url
+    When user requests all suites from project with code "PROJCODE"
+    Then status code of get suites response is 400
 
   Scenario Outline: POST creating case in suite
-    Given suite with name "<suiteName>" is created
+    Given suite with name "ForPOST" is created
     When user creates case with name "<caseName>" in created suite
     Then case with name "<caseName>" is in suite
 
     Examples:
-      | suiteName | caseName   |
-      | ForPOST   | CaseToPost |
+      | caseName   |
+      | CaseToPost |

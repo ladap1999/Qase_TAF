@@ -34,15 +34,18 @@ public class ProjectApiStepDefs extends BaseCucumberTest {
     }
 
     @Then("project with code {string} and title {string} exists")
-    public void findDataFromProject(String projectCode, String projectTitle) {
+    public void findDataFromProject(String projectCode, String projectTitle) throws NullPointerException {
         logger.info("find data from project in ProjectApiStepDefs");
         loggerFile.info("find data from project in ProjectApiStepDefs");
 
-        for (ProjectResponseModel element : allProjectsResponse.getResult().getEntities()) {
-            if (element.getCode().equals(projectCode)) {
-                Assert.assertEquals(element.getTitle(), projectTitle);
-            }
-        }
+        ProjectResponseModel actualProject = allProjectsResponse.getResult().getEntities()
+                .stream()
+                .filter(el -> el.getCode().equals(projectCode))
+                .findAny()
+                .orElse(null);
+
+        Assert.assertNotNull(actualProject);
+        Assert.assertEquals(actualProject.getTitle(), projectTitle);
     }
 
     @When("user requests project with code {string}")
@@ -51,8 +54,8 @@ public class ProjectApiStepDefs extends BaseCucumberTest {
         getProjectResponse = projectAdapter.getProject(projectCode);
     }
 
-    @Then("status code is {int}")
+    @Then("status code of get project response is {int}")
     public void statusCodeIs(int expectedStatusCode) {
-        Assert.assertEquals(getProjectResponse.statusCode(),expectedStatusCode);
+        Assert.assertEquals(getProjectResponse.statusCode(), expectedStatusCode);
     }
 }
