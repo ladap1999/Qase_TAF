@@ -24,10 +24,10 @@ Feature: UI tests for qase.io
       | 3           | 1           | The code must be at least 2 characters.         |
       | 4           | 12345678901 | The code may not be greater than 10 characters. |
 
-  Scenario Outline: checking popup title in Suite entity
+  Scenario: checking popup title in Suite entity
     Given user logged in
     When user navigates to ProjectPage
-    Then suite with "<title>" is presented
+    Then suite with "SuiteFromPostResponse" is presented
 
     Examples:
       | title                 |

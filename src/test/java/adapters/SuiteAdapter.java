@@ -10,7 +10,7 @@ import utils.Endpoints;
 
 import static io.restassured.RestAssured.given;
 
-public class SuiteAdapter extends BaseAdapter {
+public class SuiteAdapter {
     Logger logger = LogManager.getLogger(ProjectAdapter.class);
     Logger loggerFile = LogManager.getLogger("File");
 
@@ -58,5 +58,19 @@ public class SuiteAdapter extends BaseAdapter {
                 .log().body()
                 .extract()
                 .response();
+    }
+
+    public Response getSuites(String projectCode) {
+        logger.info("get suits from project with projectCode: " + projectCode);
+        loggerFile.info("get suits from project with projectCode: " + projectCode);
+
+        return given()
+                .pathParam("code", projectCode)
+                .when()
+                .get(Endpoints.GET_INVALID_SUITES)
+                .then()
+                .extract()
+                .response();
+
     }
 }
