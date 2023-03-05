@@ -19,6 +19,7 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
     Logger logger = LogManager.getLogger(SuiteApiStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
     Response rs;
+    Response getSuitesResponse;
     int suiteID;
     Suite actualSuite;
 
@@ -56,5 +57,16 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
         logger.info("checking case name");
         loggerFile.info("checking case name");
         Assert.assertEquals(actualSuite.getSuiteName(), suiteName);
+    }
+
+    @When("user requests all suites from project with code {string}")
+    public void getSuitesFromSelectedProject(String projectCode) {
+        suiteAdapter = new SuiteAdapter();
+        getSuitesResponse = suiteAdapter.getSuites(projectCode);
+    }
+
+    @Then("status code of get suites response is {int}")
+    public void statusCodeIs(int expectedStatusCode) {
+        Assert.assertEquals(getSuitesResponse.statusCode(), expectedStatusCode);
     }
 }

@@ -59,4 +59,18 @@ public class SuiteAdapter extends BaseAdapter {
                 .extract()
                 .response();
     }
+
+    public Response getSuites(String projectCode) {
+        logger.info("get suits from project with projectCode: " + projectCode);
+        loggerFile.info("get suits from project with projectCode: " + projectCode);
+
+        return given()
+                .pathParam("code", projectCode)
+                .when()
+                .get(Endpoints.GET_INVALID_SUITES)
+                .then()
+                .extract()
+                .response();
+
+    }
 }

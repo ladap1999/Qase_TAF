@@ -6,8 +6,8 @@ Feature: Api tests for qase.io
     Then project with code "<projectCode>" and title "<projectTitle>" exists
 
     Examples:
-      | projectCode | projectTitle    |
-      | FIRSTAPI    | FirstApiProject |
+      | projectCode | projectTitle      |
+      | PROJCODE    | FirstApiUIProject |
 
 
   Scenario Outline: NFE getting case
@@ -26,15 +26,23 @@ Feature: Api tests for qase.io
 
     Examples:
       | suiteName |
-      | TEST     |
+      | TEST      |
 
   Scenario Outline: AFE getting project with invalid code
     When user requests project with code "<projectCode>"
-    Then status code is <statusCode>
+    Then status code of get project response is <statusCode>
 
     Examples:
       | projectCode | statusCode |
       | INVALID     | 404        |
+
+  Scenario Outline: AFE getting suits with invalid url
+    When user requests all suites from project with code "<projectCode>"
+    Then status code of get suites response is <statusCode>
+
+    Examples:
+      | projectCode | statusCode |
+      | PROJCODE    | 400        |
 
 
   Scenario Outline: POST creating case in suite
