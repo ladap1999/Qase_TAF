@@ -70,4 +70,29 @@ public class CaseStepDefs extends BaseCucumberTest {
         Assert.assertTrue(createCasePage.getInformMassageLocator().isDisplayed());
         Assert.assertTrue(createCasePage.getCancelFormButton().isEnabled());
     }
+
+    @When("user starts creating case and adds attachment")
+    public void userStartsCreatingCaseAndAddsAttachment() {
+        logger.info("adding attachment to new case");
+        loggerFile.info("adding attachment to new case");
+
+        projectPage = new ProjectPage(driver);
+        createCasePage = new CreateCasePage(driver);
+
+        String pathToFile = CaseStepDefs.class.getClassLoader().getResource("upload.txt").getPath().substring(1);
+
+        projectPage.getCreateCaseButton().click();
+        createCasePage.getAddAttachment().click();
+
+        waitsService.waitForExists(createCasePage.getUploadAttachmentInputLocator()).sendKeys(pathToFile);
+    }
+
+    @Then("attachment is added")
+    public void attachmentIsAdded() {
+        logger.info("checking attachment");
+        loggerFile.info("checking attachment");
+
+        createCasePage = new CreateCasePage(driver);
+        Assert.assertEquals(waitsService.waitForVisibilityBy(createCasePage.getAttachedFileLocator()).getText(),"upload.txt");
+    }
 }
