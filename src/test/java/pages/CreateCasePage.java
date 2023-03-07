@@ -11,6 +11,11 @@ public class CreateCasePage extends BasePage {
     private final By createCaseLocator = By.xpath("//*[text() = 'Create test case']");
     private final By caseNameInputLocator = By.id("title");
     private final By saveButtonLocator = By.xpath("//*[text() = 'Save']");
+    private final By cancelButtonLocator = By.xpath("//*[text() = 'Cancel']");
+    private final By closeFormButtonLocator = By.xpath("//*[text() = 'Close form']");
+    private final By cancelFormButtonLocator = By.xpath("//*[text() = 'Cancel']");
+    private final By informMessageLocator = By.cssSelector(".W_JRzn");
+    private final By formTextLocator = By.xpath("//*[@class = 'PeaEvB']/child::p");
     private final By addAttachmentLocator = By.xpath("//*[text() = 'Add attachment']");
 
     public CreateCasePage(WebDriver driver) {
@@ -33,5 +38,30 @@ public class CreateCasePage extends BasePage {
 
     public WebElement getSaveButton() {
         return driver.findElement(saveButtonLocator);
+    }
+
+    public WebElement getCancelButton() {
+        waitsService.waitForVisibilityBy(cancelButtonLocator);
+        return driver.findElement(cancelButtonLocator);
+    }
+
+    public WebElement getCloseFormButton() {
+        waitsService.waitForVisibilityBy(closeFormButtonLocator);
+        return driver.findElement(closeFormButtonLocator);
+    }
+
+    public WebElement getCancelFormButton() {
+        waitsService.waitForVisibilityBy(cancelFormButtonLocator);
+        return driver.findElement(cancelFormButtonLocator);
+    }
+
+    public WebElement getFormTextLocator() {
+        waitsService.waitForVisibilityBy(formTextLocator);
+        return driver.findElement(formTextLocator);
+    }
+
+    public WebElement getInformMassageLocator() {
+        waitsService.waitForVisibilityBy(informMessageLocator);
+        return driver.findElement(informMessageLocator);
     }
 }

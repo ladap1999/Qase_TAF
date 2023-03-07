@@ -1,6 +1,7 @@
 package stepDefs;
 
 import baseEntities.BaseCucumberTest;
+import configuration.ReadFiles;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
@@ -9,12 +10,14 @@ import org.testng.Assert;
 import pages.CreateCasePage;
 import pages.ProjectPage;
 
+import java.io.IOException;
+
 public class CaseStepDefs extends BaseCucumberTest {
     private BaseCucumberTest baseCucumberTest;
     Logger logger = LogManager.getLogger(CaseStepDefs.class);
     Logger loggerFile = LogManager.getLogger("File");
-    ProjectPage projectPage;
-    CreateCasePage createCasePage;
+    private ProjectPage projectPage;
+    private CreateCasePage createCasePage;
 
     public CaseStepDefs(BaseCucumberTest baseCucumberTest) {
         this.baseCucumberTest = baseCucumberTest;
@@ -41,5 +44,30 @@ public class CaseStepDefs extends BaseCucumberTest {
 
         projectPage = new ProjectPage(driver);
         Assert.assertEquals(projectPage.getcaseCreatedMessage().getText(), message);
+    }
+
+    @When("user cancels creation of test case")
+    public void cancelCreationOfTestCase() {
+        logger.info("call dialog window");
+        loggerFile.info("call dialog window");
+
+        projectPage = new ProjectPage(driver);
+        createCasePage = new CreateCasePage(driver);
+
+        projectPage.getCreateCaseButton().click();
+        createCasePage.getCaseNameInput().sendKeys("For Test");
+        createCasePage.getCancelButton().click();
+    }
+
+    @Then("dialog window with special elements is presented")
+    public void dialogWindowIsPresented() throws IOException {
+        logger.info("element CloseFormButton is shown");
+        loggerFile.info("element CloseFormButton is shown");
+
+        createCasePage = new CreateCasePage(driver);
+        Assert.assertTrue(createCasePage.getCloseFormButton().isDisplayed());
+        Assert.assertEquals(createCasePage.getFormTextLocator().getText(), ReadFiles.readFileContent());
+        Assert.assertTrue(createCasePage.getInformMassageLocator().isDisplayed());
+        Assert.assertTrue(createCasePage.getCancelFormButton().isEnabled());
     }
 }
