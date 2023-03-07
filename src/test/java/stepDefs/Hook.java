@@ -9,7 +9,6 @@ import factory.BrowserFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.cucumber.testng.CucumberOptions;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.protocol.HTTP;
@@ -22,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public class Hook extends BaseCucumberTest {
     private BaseCucumberTest baseCucumberTest;
@@ -61,6 +61,12 @@ public class Hook extends BaseCucumberTest {
         suiteAdapter.addSuite(projectCode, suiteToAdd);
     }
 
+    @Before("@ignore")
+    public void skip_scenario(Scenario scenario){
+        System.out.println("SKIP SCENARIO: " + scenario.getName());
+        assumeTrue(false);
+    }
+    
     @After(value = "@api or @ui")
     public void clearApiTestData() {
         logger.info("Clear project with code " + projectCode);
