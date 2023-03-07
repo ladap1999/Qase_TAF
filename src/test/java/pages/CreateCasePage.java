@@ -15,7 +15,7 @@ public class CreateCasePage extends BasePage {
     private final By closeFormButtonLocator = By.xpath("//*[text() = 'Close form']");
     private final By cancelFormButtonLocator = By.xpath("//*[text() = 'Cancel']");
     private final By informMessageLocator = By.cssSelector(".W_JRzn");
-    private final By formTextLocator = By.xpath("//*[text() = 'All unsaved information related to this test case will be lost. Do you want to proceed?']");
+    private final By formTextLocator = By.xpath("//*[@class = 'PeaEvB']/child::p");
     private final By addAttachmentLocator = By.xpath("//*[text() = 'Add attachment']");
 
     public CreateCasePage(WebDriver driver) {

@@ -1,6 +1,7 @@
 package stepDefs;
 
 import baseEntities.BaseCucumberTest;
+import configuration.ReadFiles;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import pages.CreateCasePage;
 import pages.ProjectPage;
+
+import java.io.IOException;
 
 public class CaseStepDefs extends BaseCucumberTest {
     private BaseCucumberTest baseCucumberTest;
@@ -57,13 +60,13 @@ public class CaseStepDefs extends BaseCucumberTest {
     }
 
     @Then("dialog window with special elements is presented")
-    public void dialogWindowIsPresented() {
+    public void dialogWindowIsPresented() throws IOException {
         logger.info("element CloseFormButton is shown");
         loggerFile.info("element CloseFormButton is shown");
 
         createCasePage = new CreateCasePage(driver);
         Assert.assertTrue(createCasePage.getCloseFormButton().isDisplayed());
-        Assert.assertTrue(createCasePage.getFormTextLocator().isDisplayed());
+        Assert.assertEquals(createCasePage.getFormTextLocator().getText(), ReadFiles.readFileContent());
         Assert.assertTrue(createCasePage.getInformMassageLocator().isDisplayed());
         Assert.assertTrue(createCasePage.getCancelFormButton().isEnabled());
     }
