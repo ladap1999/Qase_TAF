@@ -5,6 +5,7 @@ import configuration.ReadProperties;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.testng.CucumberOptions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -27,7 +28,8 @@ public class UserStepDefs extends BaseCucumberTest {
         return new ProjectsPage(driver);
     }
 
-    @When("user inputs incorrect {string}")
+    @When("user inputs incorrect login {string}")
+    @When("user inputs non-existent login {string}")
     public void incorrectLogin(String login) {
         logger.info("user logins in with incorrect data");
         loggerFile.info("user logins in with incorrect data");

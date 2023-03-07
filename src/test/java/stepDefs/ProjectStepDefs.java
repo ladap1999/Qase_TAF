@@ -4,6 +4,7 @@ import baseEntities.BaseCucumberTest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.testng.CucumberOptions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -35,6 +36,7 @@ public class ProjectStepDefs extends BaseCucumberTest {
     public void projectsPageIsOpened() {
         logger.info("Checking if projects page is opened");
         loggerFile.info("Checking if projects page is opened");
+        projectsPage = new ProjectsPage(driver);
 
         Assert.assertTrue(projectsPage.isPageOpened());
     }
