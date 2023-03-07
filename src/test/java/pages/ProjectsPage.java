@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ProjectsPage extends BasePage {
-    private String pagePath = "/projects";
+    private final String pagePath = "/projects";
     private final By createNewProjectButtonLocator = By.id("createButton");
     private final By elementLocator = By.id("modals");
     private final By selectedProjectLocator = By.xpath("//*[text() = 'FirstApiUIProject']");
