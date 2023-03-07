@@ -56,12 +56,15 @@ public class CaseStepDefs extends BaseCucumberTest {
         createCasePage.getCancelButton().click();
     }
 
-    @Then("dialog window with special element is presented")
+    @Then("dialog window with special elements is presented")
     public void dialogWindowIsPresented() {
         logger.info("element CloseFormButton is shown");
         loggerFile.info("element CloseFormButton is shown");
 
         createCasePage = new CreateCasePage(driver);
         Assert.assertTrue(createCasePage.getCloseFormButton().isDisplayed());
+        Assert.assertTrue(createCasePage.getFormTextLocator().isDisplayed());
+        Assert.assertTrue(createCasePage.getInformMassageLocator().isDisplayed());
+        Assert.assertTrue(createCasePage.getCancelFormButton().isEnabled());
     }
 }

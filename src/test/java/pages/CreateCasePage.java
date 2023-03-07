@@ -13,6 +13,9 @@ public class CreateCasePage extends BasePage {
     private final By saveButtonLocator = By.xpath("//*[text() = 'Save']");
     private final By cancelButtonLocator = By.xpath("//*[text() = 'Cancel']");
     private final By closeFormButtonLocator = By.xpath("//*[text() = 'Close form']");
+    private final By cancelFormButtonLocator = By.xpath("//*[text() = 'Cancel']");
+    private final By informMessageLocator = By.cssSelector(".W_JRzn");
+    private final By formTextLocator = By.xpath("//*[text() = 'All unsaved information related to this test case will be lost. Do you want to proceed?']");
     private final By addAttachmentLocator = By.xpath("//*[text() = 'Add attachment']");
 
     public CreateCasePage(WebDriver driver) {
@@ -45,5 +48,20 @@ public class CreateCasePage extends BasePage {
     public WebElement getCloseFormButton() {
         waitsService.waitForVisibilityBy(closeFormButtonLocator);
         return driver.findElement(closeFormButtonLocator);
+    }
+
+    public WebElement getCancelFormButton() {
+        waitsService.waitForVisibilityBy(cancelFormButtonLocator);
+        return driver.findElement(cancelFormButtonLocator);
+    }
+
+    public WebElement getFormTextLocator() {
+        waitsService.waitForVisibilityBy(formTextLocator);
+        return driver.findElement(formTextLocator);
+    }
+
+    public WebElement getInformMassageLocator() {
+        waitsService.waitForVisibilityBy(informMessageLocator);
+        return driver.findElement(informMessageLocator);
     }
 }

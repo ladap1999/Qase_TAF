@@ -42,4 +42,4 @@ Feature: UI tests for qase.io
   Scenario: displaying the dialog window
     Given user navigates to ProjectPage
     When user cancels creation of test case
-    Then dialog window with special element is presented
+    Then dialog window with special elements is presented
