@@ -5,6 +5,7 @@ import configuration.ReadProperties;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.testng.CucumberOptions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -27,19 +28,22 @@ public class UserStepDefs extends BaseCucumberTest {
         return new ProjectsPage(driver);
     }
 
-    @When("user {string} with password {string} logged in")
-    public LoginPage loginIncorrect(String email, String password) {
+    @When("user inputs incorrect login {string}")
+    @When("user inputs non-existent login {string}")
+    public void incorrectLogin(String login) {
+        logger.info("user logins in with incorrect data");
+        loggerFile.info("user logins in with incorrect data");
+
         loginPage = new LoginPage(driver);
-        loginPage.login(email, password);
-
-        logger.info("user cannot log in, credentials are wrong");
-        loggerFile.info("user cannot log in, credentials are wrong");
-
-        return loginPage;
+        loginPage.login(login, ReadProperties.password());
     }
 
-    @Then("Login page is opened")
-    public void loginPageIsOpened() {
-        Assert.assertTrue(loginPage.isPageOpened());
+    @Then("validation alert {string} is presented")
+    public void validationAlertIsPresented(String message) {
+        loginPage = new LoginPage(driver);
+        logger.info("message '" + message + "' is presented");
+        loggerFile.info("message '" + message + "' is presented");
+
+        Assert.assertEquals(loginPage.getEmailInput().getAttribute("validationMessage"), message);
     }
 }

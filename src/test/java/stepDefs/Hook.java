@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public class Hook extends BaseCucumberTest {
     private BaseCucumberTest baseCucumberTest;
@@ -58,6 +59,12 @@ public class Hook extends BaseCucumberTest {
         String suiteToAdd = CharStreams.toString(new InputStreamReader(stream));
 
         suiteAdapter.addSuite(projectCode, suiteToAdd);
+    }
+
+    @Before("@ignore")
+    public void skip_scenario(Scenario scenario){
+        System.out.println("SKIP SCENARIO: " + scenario.getName());
+        assumeTrue(false);
     }
 
     @After(value = "@api or @ui")
