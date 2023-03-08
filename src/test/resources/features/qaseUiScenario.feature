@@ -43,3 +43,8 @@ Feature: UI tests for qase.io
     Given user navigates to ProjectPage
     When user cancels creation of test case
     Then dialog window with special elements is presented
+
+  Scenario: adding attachment
+    Given user navigates to ProjectPage
+    When user starts creating case and adds attachment
+    Then attachment is added

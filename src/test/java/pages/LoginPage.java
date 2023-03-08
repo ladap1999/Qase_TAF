@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class LoginPage extends BasePage {
-    private String pagePath = "/login";
+    private final String pagePath = "/login";
     private final By emailInputLocator = By.id("inputEmail");
     private final By passwordInputLocator = By.id("inputPassword");
     private final By logInButtonLocator = By.id("btnLogin");
