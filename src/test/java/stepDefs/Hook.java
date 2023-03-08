@@ -66,7 +66,7 @@ public class Hook extends BaseCucumberTest {
         System.out.println("SKIP SCENARIO: " + scenario.getName());
         assumeTrue(false);
     }
-    
+
     @After(value = "@api or @ui")
     public void clearApiTestData() {
         logger.info("Clear project with code " + projectCode);
