@@ -11,6 +11,8 @@ import pages.CreateCasePage;
 import pages.ProjectPage;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class CaseStepDefs extends BaseCucumberTest {
     private BaseCucumberTest baseCucumberTest;
@@ -66,8 +68,8 @@ public class CaseStepDefs extends BaseCucumberTest {
 
         createCasePage = new CreateCasePage(driver);
         Assert.assertTrue(createCasePage.getCloseFormButton().isDisplayed());
-        Assert.assertEquals(createCasePage.getFormTextLocator().getText(), ReadFiles.readFileContent());
-        Assert.assertTrue(createCasePage.getInformMassageLocator().isDisplayed());
+        Assert.assertEquals(createCasePage.getFormText().getText(), ReadFiles.readFileContent());
+        Assert.assertTrue(createCasePage.getInformMessage().isDisplayed());
         Assert.assertTrue(createCasePage.getCancelFormButton().isEnabled());
     }
 
@@ -94,5 +96,31 @@ public class CaseStepDefs extends BaseCucumberTest {
 
         createCasePage = new CreateCasePage(driver);
         Assert.assertEquals(waitsService.waitForVisibilityBy(createCasePage.getAttachedFileLocator()).getText(),"upload.txt");
+    }
+
+    @When("user starts creating case and enters too long name")
+    public void userStartsCreatingCaseAndEntersLongName() throws IOException {
+        logger.info("sending too long name to new case");
+        loggerFile.info("sending too long name to new case");
+
+        projectPage = new ProjectPage(driver);
+        createCasePage = new CreateCasePage(driver);
+
+        projectPage.getCreateCaseButton().click();
+        String caseName = Files.readString(Paths.get("src/test/resources/256.txt"));
+        createCasePage.getCaseNameInput().sendKeys(caseName);
+        createCasePage.getSaveButton().click();
+    }
+
+    @Then("{string} message appears")
+    public void messageAppears(String message) {
+        createCasePage = new CreateCasePage(driver);
+        Assert.assertEquals(createCasePage.getAlertMessage().getText(), message);
+    }
+
+    @Then("validation {string} is presented")
+    public void messageIsPresented(String message) {
+        createCasePage = new CreateCasePage(driver);
+        Assert.assertEquals(createCasePage.getValidationMessage().getText(), message);
     }
 }

@@ -19,6 +19,8 @@ public class CreateCasePage extends BasePage {
     private final By addAttachmentButtonLocator = By.xpath("//*[text() = 'Add attachment']");
     private final By uploadAttachmentInputLocator= By.cssSelector("input[type='file']");
     private final By attachedFileLocator= By.cssSelector(".Eq3UUR");
+    private final By alertMessageLocator = By.cssSelector(".OL6rtE");
+    private final By validationMessageLocator = By.xpath("//*[@id = 'titleGroup']/*[@class = 'form-control-feedback']");
 
     public CreateCasePage(WebDriver driver) {
         super(driver);
@@ -65,13 +67,23 @@ public class CreateCasePage extends BasePage {
         return driver.findElement(cancelFormButtonLocator);
     }
 
-    public WebElement getFormTextLocator() {
+    public WebElement getFormText() {
         waitsService.waitForVisibilityBy(formTextLocator);
         return driver.findElement(formTextLocator);
     }
 
-    public WebElement getInformMassageLocator() {
+    public WebElement getInformMessage() {
         waitsService.waitForVisibilityBy(informMessageLocator);
         return driver.findElement(informMessageLocator);
+    }
+
+    public WebElement getAlertMessage() {
+        waitsService.waitForVisibilityBy(alertMessageLocator);
+        return driver.findElement(alertMessageLocator);
+    }
+
+    public WebElement getValidationMessage() {
+        waitsService.waitForVisibilityBy(validationMessageLocator);
+        return driver.findElement(validationMessageLocator);
     }
 }
