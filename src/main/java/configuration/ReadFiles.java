@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ReadFiles {
-    public static String readFileContent() throws IOException {
-        return new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") + "/src/test/resources/specialValidationData/WindowMassageData")));
+    public static String readFileContent(String fileName) throws IOException {
+        return Files.readString(Paths.get("src/test/resources/specialValidationData/" + fileName));
     }
 }

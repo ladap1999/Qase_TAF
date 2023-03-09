@@ -61,17 +61,12 @@ public class ProjectPage extends BasePage {
         return driver.findElement(suiteDeletedMessageLocator);
     }
 
-    public WebElement getCreateSuiteButton() {
-        waitsService.waitForVisibilityBy(createSuiteButtonLocator);
-        return driver.findElement(createSuiteButtonLocator);
-    }
-
     public WebElement getCreateCaseButton() {
         waitsService.waitForVisibilityBy(createCaseButtonLocator);
         return driver.findElement(createCaseButtonLocator);
     }
 
-    public WebElement getcaseCreatedMessage() {
+    public WebElement getCaseCreatedMessage() {
         waitsService.waitForVisibilityBy(caseCreatedMessageLocator);
         return driver.findElement(caseCreatedMessageLocator);
     }
