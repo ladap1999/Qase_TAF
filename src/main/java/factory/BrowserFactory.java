@@ -29,6 +29,7 @@ public class BrowserFactory {
                 chromeOptions.addArguments("--ignore-certificate-errors");
                 chromeOptions.addArguments("--silent");
                 chromeOptions.addArguments("--start-maximized");
+                chromeOptions.addArguments(("--lang=en-us"));
 
                 driver = new ChromeDriver(chromeOptions);
 
