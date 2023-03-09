@@ -48,3 +48,13 @@ Feature: UI tests for qase.io
     Given user navigates to ProjectPage
     When user starts creating case and adds attachment
     Then attachment is added
+
+  Scenario Outline: checking the case name field
+    Given user navigates to ProjectPage
+    When user starts creating case and enters too long name
+    Then "<message>" message appears
+    * validation "<message>" is presented
+
+    Examples:
+      | message |
+      | The title may not be greater than 255 characters. |
