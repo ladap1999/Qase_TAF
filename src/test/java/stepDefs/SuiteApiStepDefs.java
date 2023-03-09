@@ -5,6 +5,7 @@ import baseEntities.BaseCucumberTest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.messages.types.Hook;
 import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
 import models.Suite;
@@ -35,7 +36,7 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
                 .description("for test")
                 .build();
 
-        suiteId = suiteAdapter.addSuite(Hook.projectCode, expectedSuite);
+        suiteId = suiteAdapter.addSuite(projectCode, expectedSuite);
     }
 
     @When("user requests created suite")
@@ -43,7 +44,7 @@ public class SuiteApiStepDefs extends BaseCucumberTest {
         suiteAdapter = new SuiteAdapter();
         actualSuite = new Suite();
 
-        getSuiteResponse = suiteAdapter.getSuite(Hook.projectCode, suiteId);
+        getSuiteResponse = suiteAdapter.getSuite(projectCode, suiteId);
         actualSuite = getSuiteResponse.as(SuiteResponse.class, ObjectMapperType.GSON).getResult();
     }
 
