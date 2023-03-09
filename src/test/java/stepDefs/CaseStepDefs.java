@@ -11,8 +11,6 @@ import pages.CreateCasePage;
 import pages.ProjectPage;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class CaseStepDefs extends BaseCucumberTest {
     private BaseCucumberTest baseCucumberTest;
@@ -45,7 +43,7 @@ public class CaseStepDefs extends BaseCucumberTest {
         loggerFile.info("checking message");
 
         projectPage = new ProjectPage(driver);
-        Assert.assertEquals(projectPage.getcaseCreatedMessage().getText(), message);
+        Assert.assertEquals(projectPage.getCaseCreatedMessage().getText(), message);
     }
 
     @When("user cancels creation of test case")
@@ -68,7 +66,7 @@ public class CaseStepDefs extends BaseCucumberTest {
 
         createCasePage = new CreateCasePage(driver);
         Assert.assertTrue(createCasePage.getCloseFormButton().isDisplayed());
-        Assert.assertEquals(createCasePage.getFormText().getText(), ReadFiles.readFileContent());
+        Assert.assertEquals(createCasePage.getFormText().getText(), ReadFiles.readFileContent("WindowMessageData"));
         Assert.assertTrue(createCasePage.getInformMessage().isDisplayed());
         Assert.assertTrue(createCasePage.getCancelFormButton().isEnabled());
     }
@@ -107,8 +105,8 @@ public class CaseStepDefs extends BaseCucumberTest {
         createCasePage = new CreateCasePage(driver);
 
         projectPage.getCreateCaseButton().click();
-        String caseName = Files.readString(Paths.get("src/test/resources/256.txt"));
-        createCasePage.getCaseNameInput().sendKeys(caseName);
+
+        createCasePage.getCaseNameInput().sendKeys(ReadFiles.readFileContent("256.txt"));
         createCasePage.getSaveButton().click();
     }
 
