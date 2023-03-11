@@ -21,6 +21,8 @@ public class BaseCucumberTest {
 
             return driver;
         } else {
+            logger.info("Starting the browser");
+            loggerFile.info("Starting the browser");
             return new BrowserFactory().getDriver();
         }
     }
@@ -29,8 +31,8 @@ public class BaseCucumberTest {
         if (waitsService != null) {
             return waitsService;
         } else {
-            logger.info("Starting the browser");
-            loggerFile.info("Starting the browser");
+            logger.info("Starting the waits service");
+            loggerFile.info("Starting the waits service");
             return new WaitsService(driver);
         }
     }
