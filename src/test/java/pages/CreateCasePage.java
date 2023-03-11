@@ -1,12 +1,12 @@
 package pages;
 
+import baseEntities.BaseCucumberTest;
 import baseEntities.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class CreateCasePage extends BasePage {
-
     private final String pagePath = "/case/{code}/create/{id}";
     private final By createCaseLocator = By.xpath("//*[text() = 'Create test case']");
     private final By caseNameInputLocator = By.id("title");
@@ -22,18 +22,14 @@ public class CreateCasePage extends BasePage {
     private final By alertMessageLocator = By.cssSelector(".OL6rtE");
     private final By validationMessageLocator = By.xpath("//*[@id = 'titleGroup']/*[@class = 'form-control-feedback']");
 
-    public CreateCasePage(WebDriver driver) {
-        super(driver);
-    }
-
     @Override
     protected By getPageIdentifier() {
         return createCaseLocator;
     }
 
     public WebElement getCaseNameInput() {
-        waitsService.waitForVisibilityBy(caseNameInputLocator);
-        return driver.findElement(caseNameInputLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(caseNameInputLocator);
+        return BaseCucumberTest.getDriver().findElement(caseNameInputLocator);
     }
 
     public By getUploadAttachmentInputLocator() {
@@ -45,45 +41,45 @@ public class CreateCasePage extends BasePage {
     }
 
     public WebElement getAddAttachment() {
-        return driver.findElement(addAttachmentButtonLocator);
+        return BaseCucumberTest.getDriver().findElement(addAttachmentButtonLocator);
     }
 
     public WebElement getSaveButton() {
-        return driver.findElement(saveButtonLocator);
+        return BaseCucumberTest.getDriver().findElement(saveButtonLocator);
     }
 
     public WebElement getCancelButton() {
-        waitsService.waitForVisibilityBy(cancelButtonLocator);
-        return driver.findElement(cancelButtonLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(cancelButtonLocator);
+        return BaseCucumberTest.getDriver().findElement(cancelButtonLocator);
     }
 
     public WebElement getCloseFormButton() {
-        waitsService.waitForVisibilityBy(closeFormButtonLocator);
-        return driver.findElement(closeFormButtonLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(closeFormButtonLocator);
+        return BaseCucumberTest.getDriver().findElement(closeFormButtonLocator);
     }
 
     public WebElement getCancelFormButton() {
-        waitsService.waitForVisibilityBy(cancelFormButtonLocator);
-        return driver.findElement(cancelFormButtonLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(cancelFormButtonLocator);
+        return BaseCucumberTest.getDriver().findElement(cancelFormButtonLocator);
     }
 
     public WebElement getFormText() {
-        waitsService.waitForVisibilityBy(formTextLocator);
-        return driver.findElement(formTextLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(formTextLocator);
+        return BaseCucumberTest.getDriver().findElement(formTextLocator);
     }
 
     public WebElement getInformMessage() {
-        waitsService.waitForVisibilityBy(informMessageLocator);
-        return driver.findElement(informMessageLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(informMessageLocator);
+        return BaseCucumberTest.getDriver().findElement(informMessageLocator);
     }
 
     public WebElement getAlertMessage() {
-        waitsService.waitForVisibilityBy(alertMessageLocator);
-        return driver.findElement(alertMessageLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(alertMessageLocator);
+        return BaseCucumberTest.getDriver().findElement(alertMessageLocator);
     }
 
     public WebElement getValidationMessage() {
-        waitsService.waitForVisibilityBy(validationMessageLocator);
-        return driver.findElement(validationMessageLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(validationMessageLocator);
+        return BaseCucumberTest.getDriver().findElement(validationMessageLocator);
     }
 }

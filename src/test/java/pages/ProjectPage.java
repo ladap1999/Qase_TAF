@@ -1,5 +1,6 @@
 package pages;
 
+import baseEntities.BaseCucumberTest;
 import baseEntities.BasePage;
 import configuration.ReadProperties;
 import org.openqa.selenium.By;
@@ -18,56 +19,52 @@ public class ProjectPage extends BasePage {
     private final By suiteDeleteButtonLocator = By.xpath("//*[@type = 'submit']");
     private final By suiteDeletedMessageLocator = By.xpath("//*[@role = 'alert']");
 
-    public ProjectPage(WebDriver driver) {
-        super(driver);
-    }
-
     @Override
     protected By getPageIdentifier() {
         return createSuiteButtonLocator;
     }
 
     public void openProjectByUrl(String projectCode) {
-        driver.get(ReadProperties.getUiUrl() + pagePath + projectCode);
+        BaseCucumberTest.getDriver().get(ReadProperties.getUiUrl() + pagePath + projectCode);
     }
 
     public WebElement getRepositoryName() {
-        waitsService.waitForVisibilityBy(repositoryNameLocator);
-        return driver.findElement(repositoryNameLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(repositoryNameLocator);
+        return BaseCucumberTest.getDriver().findElement(repositoryNameLocator);
     }
 
     public WebElement getSuiteTitle() {
-        waitsService.waitForVisibilityBy(suiteTitleLocator);
-        return driver.findElement(suiteTitleLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(suiteTitleLocator);
+        return BaseCucumberTest.getDriver().findElement(suiteTitleLocator);
     }
 
     public WebElement getSuiteSetting() {
-        waitsService.waitForVisibilityBy(suiteSettingLocator);
-        return driver.findElement(suiteSettingLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(suiteSettingLocator);
+        return BaseCucumberTest.getDriver().findElement(suiteSettingLocator);
     }
 
     public WebElement getSuiteDeleting() {
-        waitsService.waitForVisibilityBy(suiteDeleteLocator);
-        return driver.findElement(suiteDeleteLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(suiteDeleteLocator);
+        return BaseCucumberTest.getDriver().findElement(suiteDeleteLocator);
     }
 
     public WebElement getSuiteDeleteButtonLocator() {
-        waitsService.waitForVisibilityBy(suiteDeleteButtonLocator);
-        return driver.findElement(suiteDeleteButtonLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(suiteDeleteButtonLocator);
+        return BaseCucumberTest.getDriver().findElement(suiteDeleteButtonLocator);
     }
 
     public WebElement getSuiteDeleteMessage() {
-        waitsService.waitForVisibilityBy(suiteDeletedMessageLocator);
-        return driver.findElement(suiteDeletedMessageLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(suiteDeletedMessageLocator);
+        return BaseCucumberTest.getDriver().findElement(suiteDeletedMessageLocator);
     }
 
     public WebElement getCreateCaseButton() {
-        waitsService.waitForVisibilityBy(createCaseButtonLocator);
-        return driver.findElement(createCaseButtonLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(createCaseButtonLocator);
+        return BaseCucumberTest.getDriver().findElement(createCaseButtonLocator);
     }
 
     public WebElement getCaseCreatedMessage() {
-        waitsService.waitForVisibilityBy(caseCreatedMessageLocator);
-        return driver.findElement(caseCreatedMessageLocator);
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(caseCreatedMessageLocator);
+        return BaseCucumberTest.getDriver().findElement(caseCreatedMessageLocator);
     }
 }

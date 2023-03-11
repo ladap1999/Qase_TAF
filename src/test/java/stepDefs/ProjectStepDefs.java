@@ -20,7 +20,7 @@ public class ProjectStepDefs extends BaseCucumberTest {
     @When("user creates project with name {string} and code {string}")
     public void createProject(String projectName, String projectCode) {
         projectId = projectCode;
-        projectsPage = new ProjectsPage(driver);
+        projectsPage = new ProjectsPage();
 
         logger.info("Creating new project with name " + projectName);
         loggerFile.info("Creating new project with name " + projectName);
@@ -31,18 +31,18 @@ public class ProjectStepDefs extends BaseCucumberTest {
         projectsPage.getCreateButton().click();
     }
 
-    @Then("Projects Page is opened")
-    public void projectsPageIsOpened() {
-        logger.info("Checking if projects page is opened");
-        loggerFile.info("Checking if projects page is opened");
-        projectsPage = new ProjectsPage(driver);
+    @Then("Create new project button is not presented on Projects Page")
+    public void createNewProjectButtonIsNotPresented() {
+        logger.info("Checking if create new project button is not presented on Projects Page");
+        loggerFile.info("Checking if create new project button is not presented on Projects Page");
+        projectsPage = new ProjectsPage();
 
-        Assert.assertTrue(projectsPage.isPageOpened());
+        Assert.assertFalse(projectsPage.getCreateNewProjectButton().isDisplayed());
     }
 
     @Then("'Create new project' dialog is still opened")
     public void createProjectDialogIsOpened() {
-        projectsPage = new ProjectsPage(driver);
+        projectsPage = new ProjectsPage();
 
         logger.info("Checking if 'Create new project' dialog is opened");
         loggerFile.info("Checking if 'Create new project' dialog page is opened");
@@ -52,7 +52,7 @@ public class ProjectStepDefs extends BaseCucumberTest {
 
     @Then("message {string} is displayed")
     public void messageIsDisplayed(String message) {
-        projectsPage = new ProjectsPage(driver);
+        projectsPage = new ProjectsPage();
 
         logger.info("Checking if " + message + " message is displayed");
         loggerFile.info("Checking if " + message + " message is displayed");
@@ -62,7 +62,7 @@ public class ProjectStepDefs extends BaseCucumberTest {
 
     @Then("Project page is opened")
     public void projectIsDisplayed() {
-        projectPage = new ProjectPage(driver);
+        projectPage = new ProjectPage();
 
         logger.info("Checking if project page is opened");
         loggerFile.info("Checking if project page is opened");
@@ -72,7 +72,7 @@ public class ProjectStepDefs extends BaseCucumberTest {
 
     @Then("'{string} repository' is displayed")
     public void nameRepositoryIsDisplayed(String projectCode) {
-        projectPage = new ProjectPage(driver);
+        projectPage = new ProjectPage();
 
         logger.info("Checking if '" + projectCode + " repository' is displayed");
         loggerFile.info("Checking if '" + projectCode + " repository' is displayed");
@@ -82,7 +82,7 @@ public class ProjectStepDefs extends BaseCucumberTest {
 
     @When("user navigates to ProjectPage")
     public void navigateToProjectPage() {
-        projectsPage = new ProjectsPage(driver);
+        projectsPage = new ProjectsPage();
 
         logger.info("Navigate to Selected Project");
         loggerFile.info("Navigate to Selected Project");
@@ -95,7 +95,7 @@ public class ProjectStepDefs extends BaseCucumberTest {
         logger.info("opening Project page");
         loggerFile.info("opening Project page");
 
-        projectPage = new ProjectPage(driver);
+        projectPage = new ProjectPage();
         projectPage.openProjectByUrl(projectCode);
     }
 }
