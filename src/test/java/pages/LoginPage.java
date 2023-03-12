@@ -1,5 +1,6 @@
 package pages;
 
+import baseEntities.BaseCucumberTest;
 import baseEntities.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,18 +12,14 @@ public class LoginPage extends BasePage {
     private final By passwordInputLocator = By.id("inputPassword");
     private final By logInButtonLocator = By.id("btnLogin");
 
-    public LoginPage(WebDriver driver) {
-        super(driver);
-    }
-
     @Override
     protected By getPageIdentifier() {
         return logInButtonLocator;
     }
 
-    public WebElement getEmailInput() { return driver.findElement(emailInputLocator);}
-    public WebElement getPasswordInput() { return driver.findElement(passwordInputLocator);}
-    public WebElement getLoginButton() { return driver.findElement(logInButtonLocator);}
+    public WebElement getEmailInput() { return BaseCucumberTest.getDriver().findElement(emailInputLocator);}
+    public WebElement getPasswordInput() { return BaseCucumberTest.getDriver().findElement(passwordInputLocator);}
+    public WebElement getLoginButton() { return BaseCucumberTest.getDriver().findElement(logInButtonLocator);}
 
     public void login(String email, String password) {
         openPageByUrl(pagePath);

@@ -1,5 +1,6 @@
 package pages;
 
+import baseEntities.BaseCucumberTest;
 import baseEntities.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,38 +14,34 @@ public class ProjectsPage extends BasePage {
     private final By projectNameInputLocator = By.id("project-name");
     private final By projectCodeInputLocator = By.id("project-code");
 
-    public ProjectsPage(WebDriver driver) {
-        super(driver);
-    }
-
     @Override
     protected By getPageIdentifier() {
         return createNewProjectButtonLocator;
     }
 
     public WebElement getCreateNewProjectButton() {
-        return driver.findElement(createNewProjectButtonLocator);
+        return BaseCucumberTest.getDriver().findElement(createNewProjectButtonLocator);
     }
 
     public WebElement getProjectNameInput() {
-        return driver.findElement(projectNameInputLocator);
+        return BaseCucumberTest.getDriver().findElement(projectNameInputLocator);
     }
 
     public WebElement getProjectCodeInput() {
-        return driver.findElement(projectCodeInputLocator);
+        return BaseCucumberTest.getDriver().findElement(projectCodeInputLocator);
     }
 
     public WebElement getSelectedProject() {
-        return waitsService.waitForExists(selectedProjectLocator);
+        return BaseCucumberTest.getWaitsService().waitForExists(selectedProjectLocator);
     }
 
     public WebElement getCreateButton() {
-        WebElement element = driver.findElement(elementLocator);
+        WebElement element = BaseCucumberTest.getDriver().findElement(elementLocator);
         return element.findElement(By.cssSelector("[type='submit']"));
     }
 
     public WebElement getMessage() {
-        waitsService.waitForVisibilityBy(By.xpath("//*[@class='Y_SgpC']"));
-        return driver.findElement(By.xpath("//*[@class='Y_SgpC']"));
+        BaseCucumberTest.getWaitsService().waitForVisibilityBy(By.xpath("//*[@class='Y_SgpC']"));
+        return BaseCucumberTest.getDriver().findElement(By.xpath("//*[@class='Y_SgpC']"));
     }
 }

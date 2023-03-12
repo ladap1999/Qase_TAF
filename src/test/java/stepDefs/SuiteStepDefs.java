@@ -18,7 +18,7 @@ public class SuiteStepDefs extends BaseCucumberTest {
         logger.info("Find suite with title " + suiteTitle);
         loggerFile.info("Find suite with title " + suiteTitle);
 
-        projectPage = new ProjectPage(driver);
+        projectPage = new ProjectPage();
 
         Assert.assertEquals(projectPage.getSuiteTitle().getText(), suiteTitle);
     }
@@ -28,7 +28,7 @@ public class SuiteStepDefs extends BaseCucumberTest {
         logger.info("Delete suite entity");
         loggerFile.info("Delete suite entity");
 
-        projectPage = new ProjectPage(driver);
+        projectPage = new ProjectPage();
         projectPage.getSuiteSetting().click();
         projectPage.getSuiteDeleting().click();
         projectPage.getSuiteDeleteButtonLocator().submit();
@@ -36,7 +36,7 @@ public class SuiteStepDefs extends BaseCucumberTest {
 
     @Then("message {string} is presented")
     public void messageIsPresented(String deleteMessage) {
-        projectPage = new ProjectPage(driver);
+        projectPage = new ProjectPage();
 
         logger.info("delete message is presented");
         loggerFile.info("delete message is presented");

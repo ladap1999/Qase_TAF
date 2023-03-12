@@ -18,13 +18,13 @@ public class UserStepDefs extends BaseCucumberTest {
 
     @Given("user logged in")
     public ProjectsPage login() {
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage();
         loginPage.login(ReadProperties.username(), ReadProperties.password());
 
         logger.info("user successfully logged in");
         loggerFile.info("user successfully logged in");
 
-        return new ProjectsPage(driver);
+        return new ProjectsPage();
     }
 
     @When("user inputs incorrect login {string}")
@@ -33,13 +33,13 @@ public class UserStepDefs extends BaseCucumberTest {
         logger.info("user logins in with incorrect data");
         loggerFile.info("user logins in with incorrect data");
 
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage();
         loginPage.login(login, ReadProperties.password());
     }
 
     @Then("validation alert {string} is presented")
     public void validationAlertIsPresented(String message) {
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage();
         logger.info("message '" + message + "' is presented");
         loggerFile.info("message '" + message + "' is presented");
 

@@ -28,8 +28,8 @@ public class CaseStepDefs extends BaseCucumberTest {
         logger.info("creating test case");
         loggerFile.info("creating test case");
 
-        projectPage = new ProjectPage(driver);
-        createCasePage = new CreateCasePage(driver);
+        projectPage = new ProjectPage();
+        createCasePage = new CreateCasePage();
 
         projectPage.getCreateCaseButton().click();
 
@@ -42,7 +42,7 @@ public class CaseStepDefs extends BaseCucumberTest {
         logger.info("checking message");
         loggerFile.info("checking message");
 
-        projectPage = new ProjectPage(driver);
+        projectPage = new ProjectPage();
         Assert.assertEquals(projectPage.getCaseCreatedMessage().getText(), message);
     }
 
@@ -51,8 +51,8 @@ public class CaseStepDefs extends BaseCucumberTest {
         logger.info("call dialog window");
         loggerFile.info("call dialog window");
 
-        projectPage = new ProjectPage(driver);
-        createCasePage = new CreateCasePage(driver);
+        projectPage = new ProjectPage();
+        createCasePage = new CreateCasePage();
 
         projectPage.getCreateCaseButton().click();
         createCasePage.getCaseNameInput().sendKeys("For Test");
@@ -64,7 +64,7 @@ public class CaseStepDefs extends BaseCucumberTest {
         logger.info("element CloseFormButton is shown");
         loggerFile.info("element CloseFormButton is shown");
 
-        createCasePage = new CreateCasePage(driver);
+        createCasePage = new CreateCasePage();
         Assert.assertTrue(createCasePage.getCloseFormButton().isDisplayed());
         Assert.assertEquals(createCasePage.getFormText().getText(), ReadFiles.readFileContent("WindowMessageData"));
         Assert.assertTrue(createCasePage.getInformMessage().isDisplayed());
@@ -76,8 +76,8 @@ public class CaseStepDefs extends BaseCucumberTest {
         logger.info("adding attachment to new case");
         loggerFile.info("adding attachment to new case");
 
-        projectPage = new ProjectPage(driver);
-        createCasePage = new CreateCasePage(driver);
+        projectPage = new ProjectPage();
+        createCasePage = new CreateCasePage();
 
         String pathToFile = CaseStepDefs.class.getClassLoader().getResource("upload.txt").getPath().substring(1);
 
@@ -92,7 +92,7 @@ public class CaseStepDefs extends BaseCucumberTest {
         logger.info("checking attachment");
         loggerFile.info("checking attachment");
 
-        createCasePage = new CreateCasePage(driver);
+        createCasePage = new CreateCasePage();
         Assert.assertEquals(waitsService.waitForVisibilityBy(createCasePage.getAttachedFileLocator()).getText(),"upload.txt");
     }
 
@@ -101,8 +101,8 @@ public class CaseStepDefs extends BaseCucumberTest {
         logger.info("sending too long name to new case");
         loggerFile.info("sending too long name to new case");
 
-        projectPage = new ProjectPage(driver);
-        createCasePage = new CreateCasePage(driver);
+        projectPage = new ProjectPage();
+        createCasePage = new CreateCasePage();
 
         projectPage.getCreateCaseButton().click();
 
@@ -112,13 +112,13 @@ public class CaseStepDefs extends BaseCucumberTest {
 
     @Then("{string} message appears")
     public void messageAppears(String message) {
-        createCasePage = new CreateCasePage(driver);
+        createCasePage = new CreateCasePage();
         Assert.assertEquals(createCasePage.getAlertMessage().getText(), message);
     }
 
     @Then("validation {string} is presented")
     public void messageIsPresented(String message) {
-        createCasePage = new CreateCasePage(driver);
+        createCasePage = new CreateCasePage();
         Assert.assertEquals(createCasePage.getValidationMessage().getText(), message);
     }
 }
