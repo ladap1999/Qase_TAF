@@ -3,6 +3,7 @@ package stepDefs;
 import adapters.ProjectAdapter;
 import adapters.SuiteAdapter;
 import baseEntities.BaseCucumberTest;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.io.CharStreams;
 import configuration.ReadProperties;
 import factory.BrowserFactory;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 import static io.restassured.RestAssured.given;
 
 public class Hook extends BaseCucumberTest {
@@ -37,6 +39,14 @@ public class Hook extends BaseCucumberTest {
 
     @Before(value = "@api or @ui", order = 1)
     public void addProject() throws IOException {
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder()
+                        .put("Browser", "Chrome")
+                        .put("Browser.Version", "111.0")
+                        .put("URL", "http://qase.io")
+                        .build(), System.getProperty("user.dir")
+                        + "/allure-results/");
+
         projectAdapter = new ProjectAdapter();
         RestAssured.baseURI = ReadProperties.getApiUrl();
         RestAssured.requestSpecification = given()
