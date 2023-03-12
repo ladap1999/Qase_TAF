@@ -87,7 +87,7 @@ public class Hook extends BaseCucumberTest {
         projectAdapter.deleteProject(projectCode);
     }
 
-    @After(order = 2, value = "@ui")
+    @After(order = 3, value = "@ui")
     public void addScreenshot(Scenario scenario) {
         if (scenario.isFailed()) {
             try {
@@ -100,7 +100,7 @@ public class Hook extends BaseCucumberTest {
         }
     }
 
-    @After(order = 3, value = "@ui")
+    @After(order = 2, value = "@ui")
     public void tearDown(Scenario scenario) {
         logger.info("Turning off the browser");
         loggerFile.info("Turning off the browser");
