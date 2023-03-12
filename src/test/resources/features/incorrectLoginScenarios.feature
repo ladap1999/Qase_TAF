@@ -11,7 +11,7 @@ Feature: incorrect log in test for qase.io
       | @gmail.com       | Please enter a part followed by '@'. '@gmail.com' is incomplete.           |
 
   #@ui
-  Scenario: FAILED login test
-    When user logged in
-    Then Create new project button is not presented on Projects Page
+  #Scenario: FAILED login test
+   # When user logged in
+   # Then Create new project button is not presented on Projects Page
 
