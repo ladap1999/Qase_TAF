@@ -29,6 +29,10 @@
             <version>1.0.0</version>
             <exclusions>
                 <exclusion>
+                    <groupId>io.qameta.allure</groupId>
+                    <artifactId>allure-testng</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>com.google.guava</groupId>
                     <artifactId>guava</artifactId>
                 </exclusion>
