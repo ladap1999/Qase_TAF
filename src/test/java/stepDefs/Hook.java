@@ -45,7 +45,7 @@ public class Hook extends BaseCucumberTest {
                         .put("Browser.Version", "111.0")
                         .put("URL", "http://qase.io")
                         .build(), System.getProperty("user.dir")
-                        + "/target/allure-results/");
+                        + "/allure-results/");
 
         projectAdapter = new ProjectAdapter();
         RestAssured.baseURI = ReadProperties.getApiUrl();
