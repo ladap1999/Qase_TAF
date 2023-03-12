@@ -101,7 +101,7 @@ public class Hook extends BaseCucumberTest {
     public void embedScreenshot(Scenario scenario) {
         if (scenario.isFailed()) {
             try {
-                byte[] screenshot = ((TakesScreenshot) driver)
+                byte[] screenshot = ((TakesScreenshot) getDriver())
                         .getScreenshotAs(OutputType.BYTES);
                 scenario.attach(screenshot, "image/png", "My screenshot");
             } catch (Exception e) {
