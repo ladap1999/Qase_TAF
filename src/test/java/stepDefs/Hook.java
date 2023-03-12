@@ -62,12 +62,13 @@ public class Hook extends BaseCucumberTest {
         suiteAdapter.addSuite(projectCode, suiteToAdd);
     }
 
-    @After(value = "@api or @ui")
-    public void clearApiTestData() {
-        logger.info("Clear project with code " + projectCode);
-        loggerFile.info("Clear project with code " + projectCode);
+    @Before(value = "@ui", order = 3)
+    public void setUp(Scenario scenario) {
+        logger.info("Starting the browser");
+        loggerFile.info("Starting the browser");
 
-        projectAdapter.deleteProject(projectCode);
+        driver = new BrowserFactory().getDriver();
+        waitsService = new WaitsService(driver);
     }
 
     @After(value = "@minMaxUiTest", order = 1)
@@ -78,13 +79,25 @@ public class Hook extends BaseCucumberTest {
         projectAdapter.deleteProject(ProjectStepDefs.projectId);
     }
 
-    @Before(value = "@ui", order = 3)
-    public void setUp(Scenario scenario) {
-        logger.info("Starting the browser");
-        loggerFile.info("Starting the browser");
+    @After(value = "@api or @ui")
+    public void clearApiTestData() {
+        logger.info("Clear project with code " + projectCode);
+        loggerFile.info("Clear project with code " + projectCode);
 
-        driver = new BrowserFactory().getDriver();
-        waitsService = new WaitsService(driver);
+        projectAdapter.deleteProject(projectCode);
+    }
+
+    @After(value = "@ui", order = 2)
+    public void addScreenshot(Scenario scenario) {
+        if (scenario.isFailed()) {
+            try {
+                byte[] screenshot = ((TakesScreenshot) getDriver())
+                        .getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenshot, "image/png", "My screenshot");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @After(value = "@ui", order = 3)
@@ -94,19 +107,6 @@ public class Hook extends BaseCucumberTest {
 
         if (driver != null) {
             driver.quit();
-        }
-    }
-
-    @After(order = 2)
-    public void embedScreenshot(Scenario scenario) {
-        if (scenario.isFailed()) {
-            try {
-                byte[] screenshot = ((TakesScreenshot) getDriver())
-                        .getScreenshotAs(OutputType.BYTES);
-                scenario.attach(screenshot, "image/png", "My screenshot");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 }
