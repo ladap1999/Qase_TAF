@@ -3,6 +3,7 @@ package stepDefs;
 import adapters.ProjectAdapter;
 import adapters.SuiteAdapter;
 import baseEntities.BaseCucumberTest;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.io.CharStreams;
 import configuration.ReadProperties;
 import factory.BrowserFactory;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 import static io.restassured.RestAssured.given;
 
 public class Hook extends BaseCucumberTest {
@@ -37,6 +39,14 @@ public class Hook extends BaseCucumberTest {
 
     @Before(value = "@api or @ui", order = 1)
     public void addProject() throws IOException {
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder()
+                        .put("Browser", "Chrome")
+                        .put("Browser.Version", "111.0")
+                        .put("URL", "http://qase.io")
+                        .build(), System.getProperty("user.dir")
+                        + "/allure-results/");
+
         projectAdapter = new ProjectAdapter();
         RestAssured.baseURI = ReadProperties.getApiUrl();
         RestAssured.requestSpecification = given()
@@ -62,22 +72,6 @@ public class Hook extends BaseCucumberTest {
         suiteAdapter.addSuite(projectCode, suiteToAdd);
     }
 
-    @After(value = "@api or @ui")
-    public void clearApiTestData() {
-        logger.info("Clear project with code " + projectCode);
-        loggerFile.info("Clear project with code " + projectCode);
-
-        projectAdapter.deleteProject(projectCode);
-    }
-
-    @After(value = "@minMaxUiTest")
-    public void clearUiTestData() {
-        logger.info("Clear project with code " + ProjectStepDefs.projectId);
-        loggerFile.info("Clear project with code " + ProjectStepDefs.projectId);
-
-        projectAdapter.deleteProject(ProjectStepDefs.projectId);
-    }
-
     @Before(value = "@ui", order = 3)
     public void setUp(Scenario scenario) {
         logger.info("Starting the browser");
@@ -87,26 +81,42 @@ public class Hook extends BaseCucumberTest {
         waitsService = new WaitsService(driver);
     }
 
-    @After(value = "@ui")
+    @After(order = 1, value = "@minMaxUiTest")
+    public void clearUiTestData() {
+        logger.info("Clear project with code " + ProjectStepDefs.projectId);
+        loggerFile.info("Clear project with code " + ProjectStepDefs.projectId);
+
+        projectAdapter.deleteProject(ProjectStepDefs.projectId);
+    }
+
+    @After(value = "@api or @ui")
+    public void clearApiTestData() {
+        logger.info("Clear project with code " + projectCode);
+        loggerFile.info("Clear project with code " + projectCode);
+
+        projectAdapter.deleteProject(projectCode);
+    }
+
+    @After(order = 3, value = "@ui")
+    public void addScreenshot(Scenario scenario) {
+        if (scenario.isFailed()) {
+            try {
+                byte[] screenshot = ((TakesScreenshot) getDriver())
+                        .getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenshot, "image/png", "My screenshot");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @After(order = 2, value = "@ui")
     public void tearDown(Scenario scenario) {
         logger.info("Turning off the browser");
         loggerFile.info("Turning off the browser");
 
         if (driver != null) {
             driver.quit();
-        }
-    }
-
-    @After
-    public void embedScreenshot(Scenario scenario) {
-        if (scenario.isFailed()) {
-            try {
-                byte[] screenshot = ((TakesScreenshot) driver)
-                        .getScreenshotAs(OutputType.BYTES);
-                scenario.attach(screenshot, "image/png", "My screenshot");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 }
