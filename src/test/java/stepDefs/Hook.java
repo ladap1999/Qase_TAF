@@ -71,7 +71,7 @@ public class Hook extends BaseCucumberTest {
         waitsService = new WaitsService(driver);
     }
 
-    @After(value = "@minMaxUiTest", order = 1)
+    @After(order = 1, value = "@minMaxUiTest")
     public void clearUiTestData() {
         logger.info("Clear project with code " + ProjectStepDefs.projectId);
         loggerFile.info("Clear project with code " + ProjectStepDefs.projectId);
@@ -87,7 +87,7 @@ public class Hook extends BaseCucumberTest {
         projectAdapter.deleteProject(projectCode);
     }
 
-    @After(value = "@ui", order = 2)
+    @After(order = 2, value = "@ui")
     public void addScreenshot(Scenario scenario) {
         if (scenario.isFailed()) {
             try {
@@ -100,7 +100,7 @@ public class Hook extends BaseCucumberTest {
         }
     }
 
-    @After(value = "@ui", order = 3)
+    @After(order = 3, value = "@ui")
     public void tearDown(Scenario scenario) {
         logger.info("Turning off the browser");
         loggerFile.info("Turning off the browser");
